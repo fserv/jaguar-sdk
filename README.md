@@ -131,14 +131,14 @@ Here is a list of frequenctly asked questions and answers regarding to vector da
 You can use the docker pull command to install JaguarDB on a node:
 
 ```
-  docker pull jaguardb/jaguardb:latest
+  docker pull jaguardb/jaguardb
 ```
 
 
 Then you can start the JaguarDB in a docker container:
 
 ```
-  docker run -d -it -p 8888:8888 --name jaguardb  jaguardb/jaguardb:latest
+  docker run -d -p 8888:8888 --name jaguardb  jaguardb/jaguardb
 ```
 
 
@@ -148,12 +148,6 @@ To launch ther jaguardb shell terminal and connect to jaguardb in docker:
   docker exec -it jaguardb /home/jaguar/jaguar/bin/jag -u admin -p jaguarjaguarjaguar -h :8888
 ```
 
-
-or invoke the following script in the docker directory of the project on github:
-
-```
-  jaguardb_docker_terminal.sh
-```
 <br />
 
 ## Compiled Binary Package ##
