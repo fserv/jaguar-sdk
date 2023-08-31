@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo docker pull jaguardb/jaguardb:latest
+sudo docker pull jaguardb/jaguardb
 
