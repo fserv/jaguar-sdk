@@ -1,0 +1,19 @@
+
+example_text_vector.py shows a number of texts are first inserted into vector dabatase. 
+Then later a user enters a query text, the program will find top K (K=5) texts that best
+match the query text.
+
+Also in function retrieveTopKWithCriteria(), similarity search can be integrated with
+exact match by checking several database field values.
+
+
+You should run the script test_text_vector.sh to run the program:
+
+    ./test_text_vector.sh
+
+
+The script setup two enviroment variable for you:
+
+    export PYTHONPATH=$HOME/jaguar/lib
+    export LD_LIBRARY_PATH=$HOME/jaguar/lib
+
