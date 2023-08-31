@@ -1,0 +1,17 @@
+Dockerfile and build_jaguar_docker_image.sh
+are for development only.
+
+
+Scripts: 
+jaguar_start_in_docker.sh is for starting jaguardb in a docker container.
+jaguar_stop_in_docker.sh is for stopping jaguardb in the docker container.
+
+
+To invoke the jql.bin client program inside the docker:
+
+sudo docker exec -it jaguardb /home/jaguar/jaguar/bin/jag -u admin -p jaguarjaguarjaguar -h :8888
+
+or run the shell script:
+
+sudo jaguardb_terminal.sh
+
