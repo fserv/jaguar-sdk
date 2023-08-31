@@ -4,7 +4,7 @@ You can find a rich set of SDK, API, examples for jaguar vector database in this
 ## JaguarDB Is the Most Scalable Vector Database ##
 
 
-**Vector Database for AI**
+**Jaguar Vector Database for AI**
 
 Artificial intelligence (AI) often relies on vector databases for various tasks such as natural language processing,
 information retrieval, recommendation systems, and similarity matching. The use of vector databases is particularly
