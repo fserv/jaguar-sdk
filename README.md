@@ -151,11 +151,8 @@ To launch ther jaguardb shell terminal and connect to jaguardb in docker:
 <br />
 
 ## Compiled Binary Package ##
-You can build the binary programs from the github repository. However, since JaguarDB requires several
-third-party packages and if you do not have time to build, you can directly visit our web site and just download
-an already-built package for JaguarDB:
 
-Go to this web page to download the compiled package:  [Download JaguarDB Package](http://www.jaguardb.com/download.html)
+Go to this URL to download the compiled Jaguar server package:  [Download JaguarDB Package](http://www.jaguardb.com/download.html)
 <br />
 <br />
 
