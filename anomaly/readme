@@ -1,0 +1,19 @@
+
+example_vector_anomaly.py  shows a number of texts are first inserted into vector dabatase. 
+Then later a user enters a query text, the program will find if the query text is
+an anomaly compared to all the vectors in the vector database.
+
+Requirments to run the example python:
+Please follow ../embedding/text/baai-bge-large/README.md to install the embedding model.
+
+
+You can then run the script test_anomaly.sh to run the program:
+
+    ./test_anomaly.sh
+
+
+The script setup two enviroment variable for you:
+
+    export PYTHONPATH=$HOME/jaguar/lib
+    export LD_LIBRARY_PATH=$HOME/jaguar/lib
+

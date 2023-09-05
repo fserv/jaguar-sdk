@@ -6,8 +6,11 @@ match the query text.
 Also in function retrieveTopKWithCriteria(), similarity search can be integrated with
 exact match by checking several database field values.
 
+Requirments to run the example python:
+Please follow ../embedding/text/baai-bge-large/README.md to install the embedding model.
 
-You should run the script test_text_vector.sh to run the program:
+
+You can then run the script test_text_vector.sh to run the program:
 
     ./test_text_vector.sh
 
