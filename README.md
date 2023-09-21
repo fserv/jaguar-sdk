@@ -148,6 +148,18 @@ To launch ther jaguardb shell terminal and connect to jaguardb in docker:
   docker exec -it jaguardb /home/jaguar/jaguar/bin/jag -u admin -p jaguarjaguarjaguar -h :8888
 ```
 
+
+To get into the docker container and open a shell:
+
+```
+  docker exec -it jaguardb /bin/bash
+```
+
+You will see that /workdir has all installed files and a jaguar server instance is
+running under /home/jaguar directory. If you look at the "/ect/os-release" file, you
+can see that the jaguar docker image is based on Ubuntu 22.04 Linux.
+
+
 <br />
 
 ## Compiled Binary Package ##
