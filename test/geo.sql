@@ -1,10 +1,10 @@
 
 ### geom tables
 expect okmsg "";
-drop table if exists geom1;
+drop store if exists geom1;
 
 expect okmsg "";
-create table if not exists geom1 ( key: a int, value: pt point(srid:4326), b int );
+create store if not exists geom1 ( key: a int, value: pt point(srid:4326), b int );
 
 expect words "point spare_ geom1";
 desc geom1 detail;
@@ -26,10 +26,10 @@ expect rows 3;
 select * from test.geom1.geom1_idx1;
 
 expect okmsg "";
-drop table if exists geom2;
+drop store if exists geom2;
 
 expect okmsg "";
-create table if not exists geom2 ( key: a int, value: pt1 point, b int, uid uuid, pt2 point(srid:wgs84) );
+create store if not exists geom2 ( key: a int, value: pt1 point, b int, uid uuid, pt2 point(srid:wgs84) );
 
 expect words "geom2 pt1 pt2";
 desc geom2;
@@ -49,8 +49,8 @@ select * from geom2;
 expect rows 4;
 select * from test.geom2.geom2_idx1;
 
-drop table if exists geom3;
-create table if not exists geom3 ( key: pt1 point, value: b int, uid uuid, a int, pt2 point );
+drop store if exists geom3;
+create store if not exists geom3 ( key: pt1 point, value: b int, uid uuid, a int, pt2 point );
 
 expect words "geom3 pt1 pt2";
 desc geom3;
@@ -68,8 +68,8 @@ select * from geom3;
 expect rows 2;
 select * from test.geom3.geom3_idx1;
 
-drop table if exists d5;
-create table if not exists d5 ( key: a int, pt1 point3d, b int, pt2 point3d, value: c int, pt3 point3d, d int, pt4 point3d(srid:wgs84) );
+drop store if exists d5;
+create store if not exists d5 ( key: a int, pt1 point3d, b int, pt2 point3d, value: c int, pt3 point3d, d int, pt4 point3d(srid:wgs84) );
 desc d5;
 
 drop index if exists d5_idx  on d5;
@@ -85,8 +85,8 @@ select * from d5;
 expect rows 2;
 select * from test.d5.d5_idx;
 
-drop table if exists d6;
-create table if not exists d6 ( key: a int, pt1 point, b int, pt2 point, value: c int, pt3 point, d int, pt4 point3d );
+drop store if exists d6;
+create store if not exists d6 ( key: a int, pt1 point, b int, pt2 point, value: c int, pt3 point, d int, pt4 point3d );
 desc d6;
 
 drop index if exists d6_idx  on d6;
@@ -105,8 +105,8 @@ select * from d6;
 expect rows 2;
 select * from test.d6.d6_idx;
 
-drop table if exists cir1;
-create table if not exists cir1 ( key: a int, c1 circle(4326), b int, c2 circle, value: c int, c3 circle, d int, c4 circle );
+drop store if exists cir1;
+create store if not exists cir1 ( key: a int, c1 circle(4326), b int, c2 circle, value: c int, c3 circle, d int, c4 circle );
 desc cir1 detail;
 drop index if exists cir1_idx1 on cir1;
 create index cir1_idx1 on cir1(c3, d, c2);
@@ -120,8 +120,8 @@ select * from test.cir1.cir1_idx1;
 expect rows 2;
 select * from cir1;
 
-drop table if exists sph1;
-create table if not exists sph1 ( key: a int, s1 sphere, b int, s2 sphere, value: c int, s3 sphere );
+drop store if exists sph1;
+create store if not exists sph1 ( key: a int, s1 sphere, b int, s2 sphere, value: c int, s3 sphere );
 desc sph1 detail;
 drop index if exists sph1_idx1 on sph1;
 create index sph1_idx1 on sph1(c, s2, a, s1);
@@ -139,8 +139,8 @@ select * from test.sph1.sph1_idx1;
 expect rows 4;
 select * from sph1;
 
-drop table if exists sq1;
-create table if not exists sq1 ( key: a int, s1 square, b int, s2 square, value: c int, s3 square );
+drop store if exists sq1;
+create store if not exists sq1 ( key: a int, s1 square, b int, s2 square, value: c int, s3 square );
 desc sq1 detail;
 drop index  if exists sq1_idx1 on sq1;
 create index sq1_idx1 on sq1(s3);
@@ -150,8 +150,8 @@ insert into sq1 values ( 100, square( 22 453 22222), 100, square(9 3 123), 299, 
 expect rows 1;
 select * from sq1;
 
-drop table if exists cb1;
-create table if not exists cb1 ( key: a int, q1 cube, b int, q2 cube, value: c int, q3 cube );
+drop store if exists cb1;
+create store if not exists cb1 ( key: a int, q1 cube, b int, q2 cube, value: c int, q3 cube );
 desc cb1 detail;
 drop index  if exists cb1_idx1 on cb1;
 create index cb1_idx1 on cb1(q3,q2, b);
@@ -166,8 +166,8 @@ expect rows 1;
 select * from test.cb1.cb1_idx1;
 
 
-drop table if exists rect1;
-create table if not exists rect1 ( key: a int, r1 rectangle, value: c int );
+drop store if exists rect1;
+create store if not exists rect1 ( key: a int, r1 rectangle, value: c int );
 expect words "rect1 r1";
 desc rect1 detail;
 
@@ -179,8 +179,8 @@ create index rect1_idx1 on rect1(c, r1);
 expect rows 2;
 select * from rect1;
 
-drop table if exists bx1;
-create table if not exists bx1 ( key: a int, b1 box, value: c int, b2 box );
+drop store if exists bx1;
+create store if not exists bx1 ( key: a int, b1 box, value: c int, b2 box );
 
 expect words "bx1 b1 b2";
 desc bx1 detail;
@@ -201,8 +201,8 @@ expect rows 2;
 select distance( point3d(0 0 0), b2, 'min') as mindist from bx1;
 
 
-drop table if exists cyn1;
-create table if not exists cyn1  ( key: a int, c1 cylinder, value: c int );
+drop store if exists cyn1;
+create store if not exists cyn1  ( key: a int, c1 cylinder, value: c int );
 
 expect words "cyn1 c1";
 desc cyn1 detail;
@@ -218,8 +218,8 @@ select * from cyn1;
 
 select * from test.cyn1.cyn1_idx1;
 
-drop table if exists cn1;
-create table if not exists cn1  ( key: a int, c1 cone, value: c int, c2 cone );
+drop store if exists cn1;
+create store if not exists cn1  ( key: a int, c1 cone, value: c int, c2 cone );
 desc cn1 detail;
 
 drop index  if exists cn1_idx1 on cn1;
@@ -241,8 +241,8 @@ select * from test.cyn1.cn1_idx1;
 expect rows 2;
 select * from test.cyn1.cn1_idx2;
 
-drop table if exists el1;
-create table if not exists el1  ( key: a int, c1 ellipse, value: c int, c2 ellipse );
+drop store if exists el1;
+create store if not exists el1  ( key: a int, c1 ellipse, value: c int, c2 ellipse );
 desc el1 detail;
 
 drop index  if exists el1_idx1 on el1;
@@ -263,8 +263,8 @@ select * from test.el1.el1_idx1;
 expect rows 2;
 select * from test.el1.el1_idx2;
 
-drop table if exists es1;
-create table if not exists es1  ( key: a int, c1 ellipsoid, value: c int, c2 ellipse );
+drop store if exists es1;
+create store if not exists es1  ( key: a int, c1 ellipsoid, value: c int, c2 ellipse );
 desc es1 detail;
 
 
@@ -294,8 +294,8 @@ select * from test.es1.es1_idx2;
 expect rows 2;
 select * from test.es1.es1_idx3;
 
-drop table if exists line1;
-create table if not exists line1  ( key: a int, c1 line, value: c int, c2 line );
+drop store if exists line1;
+create store if not exists line1  ( key: a int, c1 line, value: c int, c2 line );
 desc line1 detail;
 drop index  if exists line1_idx1 on line1;
 create index line1_idx1 on line1(c2, c, c1 );
@@ -311,8 +311,8 @@ expect rows 2;
 select * from test.line1.line1_idx1;
 
 
-drop table if exists line3d2;
-create table if not exists line3d2  ( key: a int, c1 line3d, value: c int, c2 line3d );
+drop store if exists line3d2;
+create store if not exists line3d2  ( key: a int, c1 line3d, value: c int, c2 line3d );
 desc line3d2 detail;
 drop index  if exists line3d2_idx1 on line3d2;
 create index line3d2_idx1 on line3d2(c2, c, c1 );
@@ -326,8 +326,8 @@ select * from line3d2;
 expect rows 1;
 select * from test.line3d2.line3d2_idx1;
 
-drop table if exists tri1;
-create table if not exists tri1 ( key: t1 triangle, value: a int );
+drop store if exists tri1;
+create store if not exists tri1 ( key: t1 triangle, value: a int );
 
 
 insert into tri1 values ( triangle( 11 33 88 99 21 32), 123 );
@@ -341,8 +341,8 @@ create index tri31_idx1 on tri1( a );
 expect rows 2;
 select * from test.tri1.tri1_idx1;
 
-drop table if exists tri31;
-create table if not exists tri31 ( key: t1 triangle3d, value: a int );
+drop store if exists tri31;
+create store if not exists tri31 ( key: t1 triangle3d, value: a int );
 
 insert into tr31 values ( triangle3d( 11 33 88 99 23 43 9 8 2), 123 );
 insert into tr31 values ( triangle3d( 31 33 18, 99 12 34, 9 9 1), 223 );
@@ -384,16 +384,16 @@ select * from cb1 where nearby( q3, ellipsoid(31 434 235  100 200 300 0.1 0.2), 
 
 ### linestring
 
-drop table if exists lstr1;
-create table lstr1 ( key: a int, value: ls linestring );
+drop store if exists lstr1;
+create store lstr1 ( key: a int, value: ls linestring );
  insert into lstr1 values ( 1, linestring( 3 3, 4 4, 5 5 ) );
  select * from lstr1;
  select * from lstr1 where contain(ls, point(3 3) );
 
 
-drop table if exists linestr1;
+drop store if exists linestr1;
 
-create table linestr1 ( key: a int, value: ls1 linestring(wgs84), b int, ls2 linestring );
+create store linestr1 ( key: a int, value: ls1 linestring(wgs84), b int, ls2 linestring );
 
 desc linestr1 detail;
 
@@ -425,8 +425,8 @@ expect rows 10;
 select * from test.linestr1.linestr1_idx1;
 
 
- drop table if exists linestr21;
- create table linestr21 ( key: ls1 linestring(wgs84), value: a int );
+ drop store if exists linestr21;
+ create store linestr21 ( key: ls1 linestring(wgs84), value: a int );
  desc linestr21 detail;
 
 drop index if exists linestr21_idx1 on linestr21;
@@ -445,8 +445,8 @@ select * from linestr21 where within( ls1, square( 10 10 78.1 ) );
 expect rows 1;
 select * from test.linestr21.linestr21_idx1;
  
- drop table if exists linestr2;
- create table linestr2 ( key: ls1 linestring(wgs84), a int, value: ls2 linestring );
+ drop store if exists linestr2;
+ create store linestr2 ( key: ls1 linestring(wgs84), a int, value: ls2 linestring );
  desc linestr2 detail;
 
 drop index if exists linestr2_idx1 on linestr2;
@@ -468,8 +468,8 @@ select * from test.linestr2.linestr2_idx1;
 
 #todo
 
- drop table if exists linestr3;
- create table linestr3 ( key: ls1 linestring(wgs84), a int, value: ls2 linestring, b int );
+ drop store if exists linestr3;
+ create store linestr3 ( key: ls1 linestring(wgs84), a int, value: ls2 linestring, b int );
  expect words "linestr3 ls1 linestring srid 4326 ls2 a b";
  desc linestr3 detail;
 
@@ -510,8 +510,8 @@ select * from test.linestr2.linestr2_idx1;
  select * from test.linestr3.linestr3_idx1;
 
 
- drop table if exists linestr3d1;
- create table linestr3d1 ( key: ls1 linestring3d(wgs84), a int, value: ls2 linestring, b int );
+ drop store if exists linestr3d1;
+ create store linestr3d1 ( key: ls1 linestring3d(wgs84), a int, value: ls2 linestring, b int );
  expect words "linestr3d1 linestring3d srid 4326 ls2 linestring b";
  desc linestr3d1 detail;
 
@@ -586,8 +586,8 @@ select * from linestr3d1 where contain(ls1, point3d(1 2 3) );
  select ls1:x, ls1:y from test.linestr3d1.linestr3d1_idx1 where ls1:x >= 3;
 
 
- drop table if exists lstr;
- create table lstr ( key: a int, value: ls linestring );
+ drop store if exists lstr;
+ create store lstr ( key: a int, value: ls linestring );
  expect words "lstr a ls linestring";
  desc lstr;
 
@@ -641,8 +641,8 @@ select affine( ls, 1, 2,3, 4, 500, 600 )  from lstr;
 
 
  
- drop table if exists pol1;
- create table pol1 ( key: a int, value: pol polygon );
+ drop store if exists pol1;
+ create store pol1 ( key: a int, value: pol polygon );
  expect words "pol1 a pol polygon";
  desc pol1;
 
@@ -662,8 +662,8 @@ select affine( ls, 1, 2,3, 4, 500, 600 )  from lstr;
 
  select geojson(pol) from pol1 where intersect(pol, square(0 0 10000) );
 
- drop table if exists pol2;
- create table pol2 ( key: a int, value: po2 polygon, po3 polygon3d, tm timestamp default current_timestamp, ls linestring );
+ drop store if exists pol2;
+ create store pol2 ( key: a int, value: po2 polygon, po3 polygon3d, tm timestamp default current_timestamp, ls linestring );
  expect words "pol2 a po2 po3 polygon polygon3d tm timestamp ls linestring default current_timestamp";
  desc pol2;
 
@@ -681,8 +681,8 @@ select affine( ls, 1, 2,3, 4, 500, 600 )  from lstr;
  select geojson(po2) from pol2 where intersect(po2, square( 0 0 100000) );
 
 
- drop table if exists mp;
- create table mp ( key: a int, value: m1 multipoint, m2 multipoint3d );
+ drop store if exists mp;
+ create store mp ( key: a int, value: m1 multipoint, m2 multipoint3d );
  expect words "mp ( key: a int, value: m1 multipoint, m2 multipoint3d )";
  desc mp detail;
 
@@ -693,8 +693,8 @@ select affine( ls, 1, 2,3, 4, 500, 600 )  from lstr;
  expect rows 17;
  select * from mp;
 
- drop table if exists mline;
- create table mline ( key: a int, value: l1 multilinestring, l2 multilinestring3d );
+ drop store if exists mline;
+ create store mline ( key: a int, value: l1 multilinestring, l2 multilinestring3d );
  expect words "mline key: a int, value: l1 multilinestring, l2 multilinestring3d ";
  desc mline detail;
 
@@ -715,8 +715,8 @@ select numsegments(l2) from mline;
 select numrings(l2) from mline;
 
 
- drop table if exists mpg;
- create table mpg ( key: a int, value: p1 multipolygon, p2 multipolygon3d );
+ drop store if exists mpg;
+ create store mpg ( key: a int, value: p1 multipolygon, p2 multipolygon3d );
  expect words "mpg ( key: a int, value: p1 multipolygon, p2 multipolygon3d ) p2:x p2:y";
  desc mpg detail;
 
@@ -857,9 +857,9 @@ select union(p1, 'polygon((0 0, 8 0, 8 8, 0 8, 0 0),( 3 4, 4 6, 4 2, 3 4 ))'  ) 
 
 
 ### range tests
- drop table if exists rg2;
- create table rg2 ( key: a int, value: dt datetime, d date, t time, r range(datetime) );
- expect words "table rg2 ( key: a int, value: dt datetime, d date, t time, r range(datetime) );";
+ drop store if exists rg2;
+ create store rg2 ( key: a int, value: dt datetime, d date, t time, r range(datetime) );
+ expect words "rg2 ( key: a int, value: dt datetime, d date, t time, r range(datetime) );";
  desc rg2;
 
  insert into rg2 values ( 1, '2018-10-10 01:01:01', '2018-12-12', '12:11:11', range( '2015-10-10 01:01:01', '2028-10-10 01:01:01' ) );
@@ -887,8 +887,8 @@ select union(p1, 'polygon((0 0, 8 0, 8 8, 0 8, 0 0),( 3 4, 4 6, 4 2, 3 4 ))'  ) 
  select * from rg2 where intersect(r, range('1980-01-1 01:01:01', '1999-08-09 13:13:11') );
 
 
-drop table if exists pold;
-create table pold ( key: a int , value: name char(64), pol polygon(wgs84));
+drop store if exists pold;
+create store pold ( key: a int , value: name char(64), pol polygon(wgs84));
 expect words "pold ( key: a int , value: name char(64), pol polygon srid )";
 desc pold;
 
@@ -906,8 +906,8 @@ select pol:x from pold;
 expect rows 93;
 select pol:y from pold;
 
-drop table if exists lstrm;
-create table lstrm ( key: a int, b int, value: ls linestring(srid:4326,metrics:10) );
+drop store if exists lstrm;
+create store lstrm ( key: a int, b int, value: ls linestring(srid:4326,metrics:10) );
 expect words "lstrm ( key: a int, b int, value: ls linestring(srid:4326,metrics:10) )";
 desc lstrm;
 
@@ -1011,8 +1011,8 @@ select knn(ls, point(30 40), 10, 10, 100) from lstrm;
 select metricn( ls, 2 ) from lstrm;
 select metricn( ls, 2, 3 ) from lstrm;
 
-drop table if exists cirm;
-create table cirm ( key: a int, value: c circle(metrics:2), d int );
+drop store if exists cirm;
+create store cirm ( key: a int, value: c circle(metrics:2), d int );
 insert into cirm values ( 100, circle( 22 33 100 'PARK' 'tower' ), 209 );
 
 select * from cirm;

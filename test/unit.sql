@@ -44,31 +44,31 @@
 
 ######################################################################
 
-drop table if exists df1;
-create table df1 ( key: a char(1), value: b double, c char(2));
+drop store if exists df1;
+create store df1 ( key: a char(1), value: b double, c char(2));
 insert into df1 values ('a', 88888888.123456, 'cccc');
 select * from df1;
 
-drop table if exists df2;
-create table df2 ( key: a int, value: b double, c char(2));
+drop store if exists df2;
+create store df2 ( key: a int, value: b double, c char(2));
 insert into df2 values (100, 88888888.123456, 'cccc');
 select * from df2;
 
-drop table if exists df3;
-create table df3 ( key: a int, b double, value: c char(2));
+drop store if exists df3;
+create store df3 ( key: a int, b double, value: c char(2));
 insert into df3 values (100, 88888888.123456, 'cccc');
 select * from df3;
 
-drop table if exists int1k;
-create table if not exists int1k ( key: k1 int, k2 double, value: addr char(32) );
+drop store if exists int1k;
+create store if not exists int1k ( key: k1 int, k2 double, value: addr char(32) );
 load int1k.txt into int1k;
 expect rows 1;
 select * from int1k;
 
 
 ### test inserts and default values
-drop table if exists tf1;
-create table tf1 ( key: a int, b int, value: c int, d int default '444' );
+drop store if exists tf1;
+create store tf1 ( key: a int, b int, value: c int, d int default '444' );
 expect words "tf1 ( key: a int, b int, value: c int, d  default 444";
 desc tf1;
 
@@ -90,9 +90,9 @@ select d from tf1 where a=149;
 expect rows 4;
 select * from tf1;
 
-### test inserts and uuid
-drop table if exists tf2;
-create table tf2 ( key: a uuid, value: b int, c int, d int default '444' );
+### test inserts and zuid
+drop store if exists tf2;
+create store tf2 ( key: zid zuid, value: b int, c int, d int default '444' );
 insert into tf2 values ( 137, 328 );
 
 expect value c 328;
@@ -114,29 +114,29 @@ select d from tf2 where b=189;
 insert into tf2 values (149, 359, 938 );
 insert into tf2 ( b, d) values (2387, 888);
 insert into tf2 ( a, b, d) values ('', 2487, 888);
-insert into tf2 ( a, b, c) values ('', 2489, 1888);
+insert into tf2 ( b, c) values ( 2489, 1888);
 
-expect value c 1888;
-select c from tf2 where b='2489';
+expect value c 0;
+select c from tf2 where b='2387';
 
 insert into tf2 ( b, c) values ( 2483, 1888);
 
 expect value c 1888;
-select c from tf2 where b='2483';
+select c from tf2 where b='2489';
 
 ### sum and aggregations
-drop table if exists agg;
-create table agg ( key: a int, value: b double );
+drop store if exists agg;
+create store agg ( key: a int, value: b double );
 insert into agg values ( 137, 10.0 );
 
 expect value sa 137;
 select sum(a) sa from agg;
 
-### two uuid columns
-drop table if exists tf22;
-create table tf22 ( key: a uuid, value: b int, c int, d int default '444', e uuid );
+### two zuid columns
+drop store if exists tf22;
+create store tf22 ( key: zid zuid, value: b int, c int, d int default '444', e zuid );
 
-expect words "tf22 key uuid a b c DEFAULT e uuid";
+expect words "tf22 key zuid zid b c DEFAULT e zuid";
 desc tf22;
 
 insert into tf22 values ( 137, 328 );
@@ -161,11 +161,11 @@ insert into tf22 ( b, d) values (2387, 888);
 expect value d 888;
 select d from tf22 where b='2387';
 
-insert into tf22 ( a, b, d) values ('', 2487, 888);
+insert into tf22 ( b, d) values ( 2487, 888);
 expect value d 888;
 select d from tf22 where b='2487';
 
-insert into tf22 ( a, b, c) values ('', 2489, 1888);
+insert into tf22 ( b, c) values ( 2489, 1888);
 
 expect value d 444;
 select d from tf22 where b='2489';
@@ -176,8 +176,8 @@ select e from tf22 where b='2483';
 
 
 ### test inserts and timestmp
-drop table if exists tf3;
-create table tf3 ( key: a timestamp, b int, value: c int, d int default '444' );
+drop store if exists tf3;
+create store tf3 ( key: a timestamp, b int, value: c int, d int default '444' );
 insert into tf3 values ( '', 137, 328 );
 
 expect value c 328;
@@ -228,9 +228,9 @@ expect value d 444;
 select d from tf3 where b='22235';
 
 
-drop table if exists jbench;
-create table if not exists jbench (key: uid char(16), value: addr char(32) );
-truncate table jbench;
+drop store if exists jbench;
+create store if not exists jbench (key: uid char(16), value: addr char(32) );
+truncate store jbench;
 insert into jbench values ( '李世民', '胜利街12号，北京' );
 insert into jbench values ( '张明', '枫涟路123号，上海');
 
@@ -260,12 +260,12 @@ select * from jbench where uid='李世民';
 expect rows 4;
 select length(uid), length(addr) from jbench limit 4;
 
-drop table if exists unittest_old;
-create table unittest_old ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
+drop store if exists unittest_old;
+create store unittest_old ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
 
 
-drop table if exists unittest1;
-create table unittest1 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
+drop store if exists unittest1;
+create store unittest1 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
 
 drop index if exists unittest1_idx1 on unittest1;
 create index unittest1_idx1 on unittest1( v2 );
@@ -340,7 +340,7 @@ expect words "system test";
 show databases;
 
 expect words "unittest1 jbench tf1 tf2 tf3";
-show tables;
+show stores;
 
 expect words "unittest1_idx1";
 show indexes;
@@ -406,15 +406,15 @@ expect errors "E12338 Error";
 rename table unittest_old to unittest_new;
 
 expect words "jbench tf1 tf2 tf22 tf3 unittest1";
-show tables;
+show stores;
 
-drop table if exists unittest_old_2;
-create table unittest_old_2 ( key: uid char(32), ssn char(16), value: v1 char(16), v2 char(16)), v3 char(16) );
+drop store if exists unittest_old_2;
+create store unittest_old_2 ( key: uid char(32), ssn char(16), value: v1 char(16), v2 char(16)), v3 char(16) );
 expect words "unittest_old_2 uid ssn v1 v2 v3 char";
 desc unittest_old_2;
 
 
-alter table unittest_old_2 rename ssn to socseckey;
+alter store unittest_old_2 rename ssn to socseckey;
 expect words "unittest_old_2 uid socseckey v1 v2 v3 char";
 desc unittest_old_2;
 
@@ -428,12 +428,12 @@ insert into unittest_old_2 ( uid, socseckey, v1, v2, v3 ) values ( 'kkk6', 22334
 expect rows 6;
 select * from unittest_old_2;
 
-truncate table unittest_old_2;
+truncate store unittest_old_2;
 expect rows 0;
 select * from unittest_old_2;
 
 expect words "jbench tf1 tf2 tf22 tf3 unittest1 unittest_old_2";
-show tables;
+show stores;
 
 insert into unittest_old_2 ( uid, socseckey, v1, v2, v3 ) values ( 'kkk1', 223345, vvvv1, vvvvvv2, vvvvv3 );
 insert into unittest_old_2 ( uid, socseckey, v1, v2, v3 ) values ( 'kkk2', 223345, vvvv1, vvvvvv2, vvvvv3 );
@@ -459,15 +459,15 @@ insert into unittest_old_2 ( uid, socseckey, v1, v2, v3 ) values ( 'kkk6', 22334
 expect rows 3;
 select * from unittest_old_2 limit 3;
 
-drop table if exists unittest_old_2;
+drop store if exists unittest_old_2;
 
 expect words "jbench tf1 tf2 tf22 tf3 unittest1";
-show tables;
+show stores;
 
 
-create table unittest2 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
+create store unittest2 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
 expect words "jbench tf1 tf2 tf22 tf3 unittest1 unittest2";
-show tables;
+show stores;
 
 expect words "unittest2 uid v1 v2 v3";
 desc unittest2;
@@ -480,9 +480,9 @@ load 100H22.txt into unittest2 ;
 expect rows 505;
 select * from unittest2;
 
-create table unittest3 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
+create store unittest3 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3 char(16) );
 expect words "jbench tf1 tf2 tf22 tf3 unittest1 unittest2 unittest3";
-show tables;
+show stores;
 expect words "unittest3 uid v1 v2 v3";
 desc unittest3;
 
@@ -494,21 +494,21 @@ load 100H3.txt into unittest3 ;
 expect okmsg "test.unittest3 has 505 rows";
 select count(*) from unittest3;
 
-expect words "unittest3 505 rows";
+expect words "505";
 select count(*) from unittest3;
 
-expect words "unittest3_idx 505 rows";
+expect words "505";
 select count(*) from test.unittest3.unittest3_idx;
 
-#drop table if exists unittest1;
-drop table if exists unittest2;
-drop table if exists unittest3;
+#drop store if exists unittest1;
+drop store if exists unittest2;
+drop store if exists unittest3;
 
 expect nowords "unittest2 unittest3";
-show tables;
+show stores;
 
-drop table if exists int10k;
-create table if not exists int10k ( key: k1 double, k2 double, value: addr char(32) );
+drop store if exists int10k;
+create store if not exists int10k ( key: k1 double, k2 double, value: addr char(32) );
 expect words "int10k k1 k2 addr";
 desc int10k;
 
@@ -582,13 +582,13 @@ select  substr(addr, 1, 4, 'GB18030' ) from int10k limit 1;
 expect wordsize 4;
 select  substr(addr, 1, 4, GB18030 ) from int10k limit 1;
 
-drop table if exists int10k_2;
-create table if not exists int10k_2 ( key: k1 int, k2 float(16.3), value: addr char(32) );
+drop store if exists int10k_2;
+create store if not exists int10k_2 ( key: k1 int, k2 float(16.3), value: addr char(32) );
 expect words "int10k_2 k1 k2 addr float char int";
 desc int10k_2;
 
 load int10k_2.txt into int10k_2 ;
-expect words "105 rows";
+expect words "105";
 select count(*) from int10k_2;
 
 expect rows 105;
@@ -607,13 +607,13 @@ expect rows 15;
 select k1, sum(k2), count(1)  from int10k_2 group by k1 limit 2,15;
 
 
-drop table if exists service;
-create table service ( key: uid int, daytime datetime, value: phone char(10), reason char(16) );
+drop store if exists service;
+create store service ( key: uid int, daytime datetime, value: phone char(10), reason char(16) );
 expect words "service uid daytime datetime phone reason char";
 desc service;
 
 load service.txt into service ;
-expect words "1000 rows";
+expect words "1000";
 select count(*) from service;
 
 expect rows 1;
@@ -632,8 +632,8 @@ select  dayofyear(daytime) v from service limit where uid=99 and phone=100483258
 expect rows 1;
 select curdate(), curtime(), now() from service limit 1;
 
-drop table if exists callinfo;
-create table callinfo ( key: lNumberKey  int, value:  tApplyTime date, tExpirtTime date, szCallNumber char(132),iHomeArea int, szStatus char(12), lMainAccountKey int, lAccT_balance_id int, lAcctid int, szSecond_ower_type  char(4), iBalance_Type_ID int, lAmount int, lInitialAmount int, lReserveAmount      int, lSettleAmount int, szOrigin_type char(4), lOriginID int, szInitialType char(4), lInitial_D int, content char(40), lReserve0 int, tReserve0 date, lReserve1 int, tReserve1 date, lReserve2 int, tReserve2 date, lReserve3 int, tReserve3 date, lReserve4 int, tReserve4 date );
+drop store if exists callinfo;
+create store callinfo ( key: lNumberKey  int, value:  tApplyTime date, tExpirtTime date, szCallNumber char(132),iHomeArea int, szStatus char(12), lMainAccountKey int, lAccT_balance_id int, lAcctid int, szSecond_ower_type  char(4), iBalance_Type_ID int, lAmount int, lInitialAmount int, lReserveAmount      int, lSettleAmount int, szOrigin_type char(4), lOriginID int, szInitialType char(4), lInitial_D int, content char(40), lReserve0 int, tReserve0 date, lReserve1 int, tReserve1 date, lReserve2 int, tReserve2 date, lReserve3 int, tReserve3 date, lReserve4 int, tReserve4 date );
 
 expect words "callinfo lnumberkey tapplytime texpirttime szcallnumber, ihomearea , szstatus lmainaccountkey lacct_balance_id lacctid int, szsecond_ower_type ibalance_type_id lamount linitialamount lreserveamount lsettleamount szorigin_type loriginid szinitialtype linitial_d content lreserve0 treserve0 lreserve1 treserve1 lreserve2  treserve2  lreserve3 treserve3 lreserve4 treserve4"; 
 desc callinfo;
@@ -644,19 +644,19 @@ desc idx_callinfo_szCallNumber;
 
 load callinfo.txt into callinfo quote terminated by '\'';
 
-expect words "1000 rows";
+expect words "1000";
 select count(*) from callinfo;
 
-expect words "1000 rows";
+expect words "1000";
 select count(*) from test.callinfo.idx_callinfo_szCallNumber;
 
 expect rows 3;
 select * from test.callinfo.idx_callinfo_szCallNumber limit 3;
 
 
-drop table if exists service2;
-create table service2 ( key: uid uuid, value: phone char(10), reason char(16) );
-expect words "service2 uid uuid phone reason char";
+drop store if exists service2;
+create store service2 ( key: zid zuid, value: phone char(10), reason char(16) );
+expect words "service2 zid zuid phone reason char";
 desc service2;
 
 insert into service2 ( reason, phone ) values ( 'sick', '4082230989' );
@@ -666,13 +666,13 @@ insert into service2  values ( '13482829', 'us-holiday' );
 expect rows 3;
 select * from service2;
 
-drop table if exists starhost;
-create table starhost ( key: k1 char(16), k2 char(16),k3 char(16), value: v1 char(16), v2 char(16), v3 char(16) );
+drop store if exists starhost;
+create store starhost ( key: k1 char(16), k2 char(16),k3 char(16), value: v1 char(16), v2 char(16), v3 char(16) );
 expect words "starhost k1 k2 k3 v1 v2 v3 char";
 desc starhost;
 
 load starhost.txt into starhost ;
-expect words "100 rows";
+expect words "100";
 select count(*) from starhost;
 expect rows 100;
 select * from starhost;
@@ -701,8 +701,8 @@ select max(tapplytime) v from callinfo;
 
 
 ### sales table
-drop table if exists sales;
-create table sales ( key: uid int, daytime datetime, value: amt float(3.1), unit float(3.1), utype char(1) );
+drop store if exists sales;
+create store sales ( key: uid int, daytime datetime, value: amt float(3.1), unit float(3.1), utype char(1) );
 expect words "sales uid daytime datetime amt float unit utype char";
 desc sales;
 
@@ -821,17 +821,12 @@ expect rows 4;
 select uid, sum(amt)  from sales group by uid limit 4;
 
 
-
-createuser test123:testtesttest123456789;
-expect words "admin test123";
-show users;
-
 dropuser test123;
 expect nowords "test123";
 show users;
 
-drop table if exists tms1;
-create table tms1 ( key: ts timestamp, value: addr char(18) );
+drop store if exists tms1;
+create store tms1 ( key: ts timestamp, value: addr char(18) );
 expect words "tms1 ts timestamp addr char";
 desc tms1;
 
@@ -868,10 +863,10 @@ expect rows 3;
 select * from test.tms1.tms1_idx1 group by addr limit 2,3;
 
 
-### uuid as key
-drop table if exists nokey;
-create table nokey ( a int, b int, c real, d text );
-expect words "nokey _id uuid a b c";
+### zuid as key
+drop store if exists nokey;
+create store nokey ( a int, b int, c real, d text );
+expect words "nokey zid zuid a b c";
 desc nokey;
 
 insert into nokey values ( 11, 22, 12.4, 'hi there you' );
@@ -928,7 +923,7 @@ expect errmsg "";
 show databases;
 
 expect errmsg "";
-show tables;
+show stores;
 
 expect errmsg "";
 show currentdb;
@@ -936,7 +931,7 @@ show currentdb;
 expect words "TaskID ThreadID User Database StartTime Command";
 show task;
 
-expect words "Server  Version";
+expect words "Jaguar Server";
 show server version;
 
 expect words "Client";
@@ -947,8 +942,8 @@ show status;
 
 
 ### join test cases
-drop table if exists j0;
-create table j0 ( key: k01 int, k02 char(3), value: v01 int, v02 char(3) );
+drop store if exists j0;
+create store j0 ( key: k01 int, k02 char(3), value: v01 int, v02 char(3) );
 expect words "k01 k02 v01 v02";
 desc j0;
 
@@ -975,16 +970,16 @@ select k02, v01 from j0 order by k01, v01, k02;
 expect words "ss9";
 select k02, v01, k01 from j0 order by k01, v01, k02 limit 10,1;
 
-drop table if exists def1;
-create table def1 ( key: uid int, value: b int default '1', c varchar(32) default 'C' );
+drop store if exists def1;
+create store def1 ( key: uid int, value: b int default '1', c varchar(32) default 'C' );
 insert into def1 ( uid ) values ( 100 );
 insert into def1 values ( 200 );
 insert into def1 values ( 200, 1000 );
 expect rows 2;
 select * from def1;
 
-drop table if exists def2;
-create table def2 ( key: uid int, value: b int default '1', tm timestamp default current_timestamp on update current_timestamp );
+drop store if exists def2;
+create store def2 ( key: uid int, value: b int default '1', tm timestamp default current_timestamp on update current_timestamp );
 insert into def2 ( uid ) values ( 100 );
 insert into def2 values ( 200 );
 insert into def2 values ( 300, 1000 );
@@ -1005,16 +1000,16 @@ select * from def2;
 
 #todo
 
-drop table if exists inst1;
-create table if not exists inst1 ( key: a char(32), value: b char(21) );
+drop store if exists inst1;
+create store if not exists inst1 ( key: a char(32), value: b char(21) );
 expect words "inst1 a b";
 desc inst1;
 
 expect rows 0;
 select * from inst1;
 
-drop table if exists inst2;
-create table if not exists inst2 ( key: a char(32), value: b char(21), c char(21) );
+drop store if exists inst2;
+create store if not exists inst2 ( key: a char(32), value: b char(21), c char(21) );
 expect words "inst2 a b c char";
 desc inst2;
 
@@ -1036,8 +1031,8 @@ select * from inst1;
 expect errors "Error";
 createdb jdjdj-rirr;
 
-drop table if exists ii;
-create table ii ( key: a int, value: b int );
+drop store if exists ii;
+create store ii ( key: a int, value: b int );
 expect words "ii a b ";
 desc ii;
 insert into ii values ( -15, -150);
@@ -1133,8 +1128,8 @@ expect rows 6;
 select * from ii where b < 3000 and a > -55;
 
 
-drop table if exists media;
-create table media (key: uid int, value: jpg file, a char(23), tiff file );
+drop store if exists media;
+create store media (key: uid int, value: jpg file, a char(23), tiff file );
 insert into media values ( 100, 'req.jpg', 'aaaa', random_test.txt );
 insert into media values ( 101, 'req.jpg', 'aaaa', callinfo.txt );
 expect rows 2;
@@ -1172,8 +1167,8 @@ getfile jpg sizegb from media where uid='101';
 
 
 
-drop table if exists media2;
-create table media2 (key: uid char(1), pt point, name char(2),  value: jpg file, a char(23), tiff file );
+drop store if exists media2;
+create store media2 (key: uid char(1), pt point, name char(2),  value: jpg file, a char(23), tiff file );
 insert into media2 values ( 'a', point(10 20 ), 'jy', 'req.jpg', 'aaaa1', random_test.txt );
 insert into media2 values ( 'b', point(12 22 ), 'mt', 'req.jpg', 'aaaa2', callinfo.txt );
 insert into media2 values ( 'c', point(23 24 ), 'sy', 'req.jpg', 'aaaa3', 'callinfo.txt' );
@@ -1210,8 +1205,8 @@ expect rows 1;
 getfile jpg size, tiff time, tiff md5, jpg time from media2 where cover(pt, point(10 20));
 
 
-drop table if exists dv;
-create table dv ( key: a double, b double, value: c longdouble);
+drop store if exists dv;
+create store dv ( key: a double, b double, value: c longdouble);
 insert into dv values (100, 1000, 10000);
 insert into dv values (200, 2000, 20000);
 insert into dv values (300, 3000, 30000);

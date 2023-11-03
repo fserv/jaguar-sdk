@@ -1,11 +1,11 @@
 
 
-The patient table is a database of patient profile:
+The patient store is a repository of patient profile:
 
-create table patient
+create store patient
 ( 
     key: 
-        patientid uuid, 
+        zid zuid, 
     value: 
         first_name          char(64),
         middle_name         char(64),
@@ -17,9 +17,9 @@ create table patient
         state               char(64)
 );
 
-The patient visits table records all patients visiting history:
+The patient visits store records all patients visiting history:
 
-create table  patient_visit
+create store  patient_visit
 (
     key:
         patientid char(32),
@@ -29,12 +29,12 @@ create table  patient_visit
 );
 
 
-The diagnosis table has all the diagnosis history:
+The diagnosis store has all the diagnosis history:
 
-create table diagnosis
+create store diagnosis
 (
     key: 
-        diagnoid uuid, 
+        zid zuid, 
     value: 
         exercise_per_week   tinyint,  
         height              smallint,
@@ -49,23 +49,23 @@ create table diagnosis
         cholesterol_ldl     smallint,
         cholesterol_hdl     smallint,
 
-        symptoms_txt        char(2048),
         symptoms_vec        vector(1024, 'euclidean_fraction_float'),
+        symptoms_vec:symptoms_txt        char(2048),
 
-        patient_input_txt   char(2048),
-        patient_input_vec   vector(1024, 'euclidean_fraction_float'),
+        patient_input_vec                     vector(1024, 'euclidean_fraction_float'),
+        patient_input_vec:patient_input_txt   char(2048),
 
-        ecg_image           file,
-        ecg_vec             vector(1024, 'euclidean_fraction_float'),
+        ecg_vec                 vector(1024, 'euclidean_fraction_float'),
+        ecg_vec:ecg_image       file,
 
-        xray_image          file,
-        xray_vec            vector(1024, 'euclidean_fraction_float'),
+        xray_vec                vector(1024, 'euclidean_fraction_float'),
+        xray_vec:xray_image     file,
 
-        mri_image           file,
-        mri_vec             vector(1024, 'euclidean_fraction_float'),
+        mri_vec                 vector(1024, 'euclidean_fraction_float'),
+        mri_vec:mri_image       file,
 
-        catscan_image       file,
-        catscan_vec         vector(1024, 'euclidean_fraction_float'),
+        catscan_vec                 vector(1024, 'euclidean_fraction_float'),
+        catscan_vec:catscan_image   file,
 );
 
 
@@ -78,7 +78,7 @@ Register patients:
 ### https://www.rubomedical.com/dicom_files/
 Record a patient visit and a diagnosis:
 
-    insert into diagnosis values ( '8', '71', '165', '0', '0', '8', '120', '80','50', '0', '90', '60', 'Fever or chills, Cough, Shortness of breath or difficulty breathing, Fatigue, Muscle or body aches, Headache', 'symptoms_vector_string', 'Morgan had a rash on her hands, a rapid heart rate and unusually low blood pressure, developed red eyes and the skin on her lips cracked and split, Morgan complained of being sore all over and could barely stay awake', 'img/diagram_photo.dicom', 'vector_of_ecg_diagram_photo.dicom', 'img/xray.dicom', 'vector_of_xray.dicom', 'img/mri.dicom', 'vector_of_mdr.dicom', 'img/cat.dicom', 'vector_of_cat.dicom' );
+    insert into diagnosis values ( '8', '71', '165', '0', '0', '8', '120', '80','50', '0', '90', '60', 'Fever or chills, Cough, Shortness of breath or difficulty breathing, Fatigue, Muscle or body aches, Headache', 'symptoms_vector_string', 'Morgan had a rash on her hands, a rapid heart rate and unusually low blood pressure, developed red eyes and the skin on her lips cracked and split, Morgan complained of being sore all over and could barely stay awake', 'vector_of_ecg_diagram_photo.dicom', 'img/diagram_photo.dicom', 'vector_of_xray.dicom', 'img/xray.dicom', 'vector_of_mdr.dicom', 'img/mri.dicom', 'vector_of_cat.dicom', 'img/cat.dicom' );
 
 
 Insert more diagnosis cases as shown above.

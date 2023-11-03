@@ -39,7 +39,7 @@ def searchSimilarTexts(jag, model, queryText, K):
 
 
 def getTextByVID(jag, vid):
-    qstr =" select zid from vectordb.textvec.textvec_idx where v='" + vid + "'"
+    qstr =" select zid from vdb.textvec.v_zid_idx where v='" + vid + "'"
     zid = ''
     jag.query( qstr )
     while jag.reply():
@@ -119,25 +119,22 @@ def main():
 
     host = sys.argv[1]
     port = sys.argv[2]
-    user = "admin"
-    password = "jaguarjaguarjaguar"
-    vectordb = "vectordb"
+    apikey = "my-api-key"
+    tenant = "my-tenant"
+    db = "vdb"
 
-    rc = jag.connect( host, port, user, password, vectordb )
+    rc = jag.connect( host, port, apikey, "opt", tenant, db )
     print ("Connected to JaguarDB server" )
     
-    ### create table for vector data. Notice that 1024 is the dimension for BAAI/bge-large-en model
-    jag.execute("drop table if exists textvec")
-    jag.execute("create table textvec ( key: zid uuid, value: v vector(1024, 'cosine_fraction_short'), text char(2048), source char(32) )")
+    ### create store for vector data. Notice that 1024 is the dimension for BAAI/bge-large-en model
+    jag.execute("drop store if exists textvec")
+    jag.execute("create store textvec ( key: zid uuid, value: v vector(1024, 'cosine_fraction_short'), text char(2048), source char(32) )")
+    # scalar index 'v_zid_idx' is created automatically in textvec
 
-    jag.execute("drop index if exists textvec_idx on textvec")
-    jag.execute("create index textvec_idx on textvec( v, zid )")
-    
     ### use the BAAI/bge-large-en model
     model = SentenceTransformer('BAAI/bge-large-en')
     
-    
-    ### store texts into vectordb
+    ### store texts into vdb
     text = "Human impact on the environment, or anthropogenic environmental impact, refers to changes to biophysical environments and to ecosystems, biodiversity, and natural resources caused directly or indirectly by humans"
     zuid1 = storeText( jag, model, text, "wiki" )
 

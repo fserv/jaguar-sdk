@@ -1,9 +1,4 @@
 #!/bin/sh
 
-### change to your valid admin password
-ADMINPASSWD=jaguarjaguarjaguar
-
-jagserver="127.0.0.1"
-
-~/jaguar/bin/jag -d test -u admin -p $ADMINPASSWD -h $jagserver:8888 "$@"
+~/jaguar/bin/jag -d test
 

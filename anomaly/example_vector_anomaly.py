@@ -35,8 +35,7 @@ def storeText(jag, model, text, source):
 def testAnomalous( jag, model ):
 
     keys = "euclidean_whole_float" 
-    sig = "2.0"
-    act = "0.3"
+    act = "[0.5:70;1.5:40;2:30]"
 
     ### select anomalous on one input
     queryText = "Come on-a my house my house, I’m gonna give you candy Come on-a my house, my house, I’m gonna give a you Apple a plum and apricot-a too eh Come on-a my house, my house a come on Come on-a my house, my house a come on Come on-a my house, my house I’m gonna give a you Figs and dates and grapes and cakes eh";
@@ -44,7 +43,7 @@ def testAnomalous( jag, model ):
     embeddings = model.encode(sentences, normalize_embeddings=False)
     comma_sep_str = ",".join( [str(x) for x in embeddings[0] ])
     print("\n")
-    qs = "select anomalous(v, '" + comma_sep_str + "','type=" + keys + ", sigmas=" + sig + ",activation=" + act + "') from vecanomaly" 
+    qs = "select anomalous(v, '" + comma_sep_str + "','type=" + keys + ", activation=" + act + "') from vecanomaly" 
     print(qs[0:80])
 
     jag.query( qs )
@@ -58,7 +57,7 @@ def testAnomalous( jag, model ):
     embeddings = model.encode(sentences, normalize_embeddings=False)
     comma_sep_str = ",".join( [str(x) for x in embeddings[0] ])
     print("\n")
-    qs = "select anomalous(v, '" + comma_sep_str + "','type=" + keys + ", sigmas=" + sig + ",activation=" + act + "') from vecanomaly" 
+    qs = "select anomalous(v, '" + comma_sep_str + "','type=" + keys + ", activation=" + act + "') from vecanomaly" 
     print(qs[0:80])
 
     jag.query( qs )
@@ -77,16 +76,16 @@ def main():
 
     host = sys.argv[1]
     port = sys.argv[2]
-    user = "admin"
-    password = "jaguarjaguarjaguar"
-    vectordb = "vectordb"
+    apikey = "my-api-key"
+    tenant = "my-tenant"
+    vectordb = "vdb"
 
-    rc = jag.connect( host, port, user, password, vectordb )
+    rc = jag.connect( host, port, apikey, "opt", tenant, vectordb )
     print ("Connected to JaguarDB server {} {}" .format(host, port), flush=True )
     
-    ### create table for vector data. Notice that 1024 is the dimension for BAAI/bge-large-en model
-    jag.execute("drop table if exists vecanomaly")
-    jag.execute("create table vecanomaly ( key: zid uuid, value: v vector(1024, 'euclidean_whole_float'), text char(2048), source char(32) )")
+    ### create store for vector data. Notice that 1024 is the dimension for BAAI/bge-large-en model
+    jag.execute("drop store if exists vecanomaly")
+    jag.execute("create store vecanomaly ( key: zid zuid, value: v vector(1024, 'euclidean_whole_float'), text char(2048), source char(32) )")
 
     ### use the BAAI/bge-large-en model
     model = SentenceTransformer('BAAI/bge-large-en')

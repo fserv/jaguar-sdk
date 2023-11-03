@@ -1,24 +1,13 @@
 
 ### vector table
-drop table if exists vec1;
-create table vec1 ( key: fid uuid, value: v vector(10, 'manhatten_fraction_byte,manhatten_fraction_short, cosine_fraction_byte,cosine_fraction_float'), fname char(64) );
-expect words "vec1 vector fid fname manhatten";
+drop store if exists vec1;
+create store vec1 ( key: zid zuid, value: v vector(10, 'manhatten_fraction_byte,manhatten_fraction_short, cosine_fraction_byte,cosine_fraction_float'), fname char(64) );
+expect words "vec1 vector zid fname manhatten";
 desc vec1;
-
-drop index if exists vec1_idx1 on vec1;
-create index vec1_idx1 on vec1( v, fid, fname );
-expect words "vec1_idx1 vec1 vector";
-desc vec1_idx1;
-
-drop index if exists vec1_idx2 on vec1;
-create index vec1_idx2 on vec1( fname, fid );
-expect words "vec1_idx2 fname fid vec1";
-desc vec1_idx2;
-
 
 insert into vec1 values ( '0.2, 0.4, 0.2, 0.3, 0.7, 0.3, 0.81, 0.34', 'photo1.jpg' );
 expect putvalue fid1;
-select fid as fid1 from test.vec1.vec1_idx2 where fname='photo1.jpg';
+select zid as fid1 from test.vec1.v_zid_idx where fname='photo1.jpg';
 print fid1;
 
 expect putvalue vid1;
@@ -51,6 +40,7 @@ select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=manhatten
 expect rows 1;
 select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=cosine_fraction_float,output_vector=yes') from vec1;
 
+## todo bug
 expect rows 8;
 select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=10,type=cosine_fraction_float') from vec1 where fname like 'pho%';
 
@@ -62,6 +52,8 @@ select vector(v, 'type=manhatten_fraction_short') from vec1 where fid=$getvalue(
 select vector(v, 'type=manhatten_fraction_byte') from vec1 where fid=$getvalue(fid1)$;
 
 #delete from vec1 where fid=$getvalue(fid1)$;
+
+select anomalous(v, '0.1, 0.2, 0.9, 0.9, 0.9, 0.3, 0.8, 0.1, 0.2, 0.1', 'type=cosine_fraction_float,sigmas=4,activation=[0.3:20;1.3:10]') from vec1;
 
 
 quit;
