@@ -53,7 +53,7 @@ JaguarDB Server Setup:
 Applications have the flexibility to bypass the HTTP gateway and establish direct connections with 
 the JaguarDB server when they are operating on the Ubuntu 22.04 platform. Additionally, 
 libraries are provided to empower clients with the capability to communicate directly with the 
-JaguarDB server for seamless data access and management."
+JaguarDB server for seamless data access and management.
 
 ```
 
