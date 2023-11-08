@@ -15,11 +15,12 @@ and the jaguardb-http-client package is available.
 
 ```
 
-     Clients                   Http Gateway              JaguarDB Server
+     Clients                   Http Gateway               Jaguar Server
                            (Any Linux Platform)        (Any Linux Platform)
 
                                                        -------------------
-  ----------------        --------------------        |      Pods         |
+                                                      |                   |
+  ----------------        --------------------        |    Data Pods      |
  |    Mac OS      | <==> |                    | <===> |                   |
   ----------------       |     REST  HTTP     |       |    AI Stores      |
                          |                    |       |                   |
@@ -61,16 +62,17 @@ JaguarDB server for seamless data access and management.
                                 (Any Linux Platform)
     (Ubuntu 22.04)
                                 -------------------
-   --------------------        |      Pods         |
-  |                    |       |
-  |     REST  HTTP     |       |    AI Stores      |
+                               |                   |
+   --------------------        |    Data Pods      |
   |                    |       |                   |
-  |       GET          |       |  Vector Indexes   |
-  |       POST         | <===> |                   |
-  |                    |       |  Scalar Indexes   | 
-  |      Insert        |       |                   |  
+  |      QUERY         |       |    AI Stores      |
+  |                    |       |                   |
+  |      Insert        |       |  Vector Indexes   |
+  |      Select        | <===> |                   |
+  |      Update        |       |  Scalar Indexes   | 
+  |      Delete        |       |                   |  
   |      Upload        |       |    Similarity     |
-  |      Query         |       |                   |
+  |                    |       |                   |
    --------------------        |     Anomaly       |
                                |                   |
                                 ------------------- 
