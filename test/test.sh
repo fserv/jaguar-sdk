@@ -5,24 +5,24 @@ ulimit -c unlimited
 
 date
 echo "Test unit.sql ..."
-./jagdb -v < unit.sql > output/unit.out
+./jagdb -t main -v < unit.sql > output/unit.out
 date
 
 echo "Test vector.sql ..."
-./jagdb -v < vector.sql > output/vector.out
+./jagdb -t main -v < vector.sql > output/vector.out
 date
 
 
 echo "Test time.sql ..."
-./jagdb -v < time.sql > output/time.out
+./jagdb -t main -v < time.sql > output/time.out
 date
 
 echo "Test geo.sql ..."
-./jagdb -v < geo.sql > output/geo.out
+./jagdb -t main -v < geo.sql > output/geo.out
 date
 
 echo "Test iot.sql ..."
-./jagdb -v < iot.sql > output/iot.out
+./jagdb -t main -v < iot.sql > output/iot.out
 date
 
 

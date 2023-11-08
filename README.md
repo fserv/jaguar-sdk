@@ -6,56 +6,93 @@ You can find a rich set of SDK, API, examples for Jaguar vector database in this
 
 **Jaguar Vector Database for AI**
 
-Artificial intelligence (AI) often relies on vector databases for various tasks such as natural language processing,
-information retrieval, recommendation systems, and similarity matching. The use of vector databases is particularly
-relevant in the context of machine learning models that leverage embeddings, which are numerical representations
-of data elements in a continuous vector space.
+JaguarDB Server is versatile and can be effortlessly deployed on a wide range of Linux platforms, including 
+but not limited to Ubuntu, Red Hat, Fedora, and others. The server software is compatible with any
+64-bit Linux distribution. Clients, on the other hand, enjoy flexibility and compatibility as 
+they can initiate connections from various platforms, provided that Python 3 is installed, 
+and the jaguardb-http-client package is available.
 
-Vectors provide a compact and efficient representation of complex data structures. By transforming data elements
-into vectors with thousands of dimensions, AI systems can work with numerical representations that are more amenable
-to mathematical operations and analysis.  Vector databases enable the computation of similarity or distance metrics
-between vectors, such as cosine similarity or Euclidean distance. These metrics are fundamental
-for tasks like similarity matching, nearest neighbor searches, and clustering, which are essential in recommendation
-systems, content retrieval, and data exploration.
-
-An AI datalake is equally crucial for AI applications, as media data like images and videos tend to occupy more
-space compared to structured data. The ZeroMove technology is particularly potent when it comes to efficiently scaling
-AI data systems. This scalability, coupled with its extensive development and testing history, positions JaguarDB
-as a reliable choice for enterprises seeking to harness the full potential of AI while maintaining robust and scalable
-data storage and retrieval capabilities.
 
 ```
 
-     JaguarDB                       Model                      JaguarDB
+     Clients                   Http Gateway              JaguarDB Server
+                           (Any Linux Platform)        (Any Linux Platform)
 
-                                                         --------------------
-  ----------------        ----------------------        | Generated Content  |
- | Training Data  | ===> |                      | ====> | Embedding Vectors  | <===== Search
-  ----------------       |  AI  Neural Network  |        --------------------
-                         |                      |
-  ----------------       |       Text           |        --------------------
- |  AI Data Lake  | ===> |       Audio          | ====> |  Non-vector search | ------------v
-  ----------------       |       Video          |        --------------------              |
-                         |      Images          |                                          |
-  ----------------       |                      |        --------------------              |
- |  Dynamic Data  | ===> |     Embeddings       | ====> |  Vector Search     | ------v     |
-  ----------------        ----------------------         --------------------        |     |
-                                  ^      ^                                           |     |
-                                  |      |                                           |     |
-                                  |      |                                           |     |
-                                  |      ^-------------------------------------------<     |
-                                  |                                                        |
-                                  |                                                        |
-                                  ^--------------------------------------------------------<
+                                                       -------------------
+  ----------------        --------------------        |      Pods         |
+ |    Mac OS      | <==> |                    | <===> |                   |
+  ----------------       |     REST  HTTP     |       |    AI Stores      |
+                         |                    |       |                   |
+  ----------------       |       GET          |       |  Vector Indexes   |
+ |    Linux       | <==> |       POST         | <===> |                   |
+  ----------------       |                    |       |  Scalar Indexes   | 
+                         |      Insert        |       |                   |  
+  ----------------       |      Upload        |       |    Similarity     |
+ |    Windows     | <==> |      Query         | <===> |                   |
+  ----------------        ---------------------       |     Anomaly       |
+                                                      |                   |
+                                                       ------------------- 
 
 ```
+
+Clients Setup:
+
+    pip install jaguardb-http-client
+
+
+Http Gateway Setup:
+
+    wget http://www.jaguardb.com/download/fwww_3.3.7.tar.gz
+
+
+JaguarDB Server Setup:
+
+    wget http://www.jaguardb.com/download/jaguar-3.3.7.tar.gz
+
+
+Applications have the flexibility to bypass the HTTP gateway and establish direct connections with 
+the JaguarDB server when they are operating on the Ubuntu 22.04 platform. Additionally, 
+libraries are provided to empower clients with the capability to communicate directly with the 
+JaguarDB server for seamless data access and management."
+
+```
+
+        Clients                    JaguarDB Server
+                                (Any Linux Platform)
+    (Ubuntu 22.04)
+                                -------------------
+   --------------------        |      Pods         |
+  |                    |       |
+  |     REST  HTTP     |       |    AI Stores      |
+  |                    |       |                   |
+  |       GET          |       |  Vector Indexes   |
+  |       POST         | <===> |                   |
+  |                    |       |  Scalar Indexes   | 
+  |      Insert        |       |                   |  
+  |      Upload        |       |    Similarity     |
+  |      Query         |       |                   |
+   --------------------        |     Anomaly       |
+                               |                   |
+                                ------------------- 
+
+```
+
+Clients setup:
+
+    pip install jaguardb-socket-client
+
+
+JaguarDB  server setup:
+
+    wget http://www.jaguardb.com/download/jaguar-3.3.7.tar.gz
+
 
 
 The following document provides a comprehensive guide on utilizing JaguarDB to
 develop and launch your scalable vector search projects and AI applications:
 
 
-   http://www.jaguardb.com/doc/jaguarvectordb.pdf
+   http://www.jaguardb.com/doc/JaguarUserManual.pdf
 <br />
 <br />
 
@@ -145,7 +182,7 @@ Then you can start the JaguarDB in a docker container:
 To launch ther jaguardb shell terminal and connect to jaguardb in docker:
 
 ```
-  docker exec -it jaguardb /home/jaguar/jaguar/bin/jag -u admin -p jaguarjaguarjaguar -h :8888
+  docker exec -it jaguardb /home/jaguar/jaguar/bin/jag 
 ```
 
 
@@ -177,18 +214,6 @@ Our web site is at:
 <br />
 
 
-## Spring Boot and JaguarDB ##
-Developers can leverage the power and flexibility of Java environments to rapidly
-develop and package applications. JaguarDB offers a JDBC
-standard API that facilitates Java application development in Spring Boot.
-The directory springboot contains examples demonstrating how JaguarDB can be
-integrated in the Spring Boot framework.
-
-For details, please visit:
-
-   http://www.jaguardb.com/doc/JaguarDBSpringBoot.pdf
-
-<br />
 
 ## Deployment ##
 

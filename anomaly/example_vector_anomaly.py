@@ -77,10 +77,9 @@ def main():
     host = sys.argv[1]
     port = sys.argv[2]
     apikey = "my-api-key"
-    tenant = "my-tenant"
     vectordb = "vdb"
 
-    rc = jag.connect( host, port, apikey, "opt", tenant, vectordb )
+    rc = jag.connect( host, port, apikey, vectordb )
     print ("Connected to JaguarDB server {} {}" .format(host, port), flush=True )
     
     ### create store for vector data. Notice that 1024 is the dimension for BAAI/bge-large-en model

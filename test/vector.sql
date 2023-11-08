@@ -32,13 +32,13 @@ expect rows 1;
 select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=manhatten_fraction_short') from vec1;
 
 expect rows 1;
-select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=manhatten_fraction_byte,output_vector=yes') from vec1;
+select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=manhatten_fraction_byte,with_vector=yes') from vec1;
 
 expect rows 1;
-select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=manhatten_fraction_short,output_vector=yes') from vec1;
+select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=manhatten_fraction_short,with_vector=yes') from vec1;
 
 expect rows 1;
-select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=cosine_fraction_float,output_vector=yes') from vec1;
+select similarity(v, '0.1, 0.2, 0.3, 0.4, 0.5, 0.3, 0.1', 'topk=5,type=cosine_fraction_float,with_vector=yes') from vec1;
 
 ## todo bug
 expect rows 8;

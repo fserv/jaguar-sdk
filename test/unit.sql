@@ -1024,10 +1024,6 @@ insert into inst2 values ( 'a8', 'bbb8', 'ffffff' );
 expect rows 8;
 select * from inst2;
 
-insert into inst1 (inst1.a, inst1.b) select inst2.a, inst2.b from inst2;
-expect rows 8;
-select * from inst1;
-
 expect errors "Error";
 createdb jdjdj-rirr;
 

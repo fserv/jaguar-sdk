@@ -2,7 +2,7 @@
 ###################################################################################################################
 ### sensor or car identity with uuid, name, model, and geo-location
 drop table if exists iot;
-create table if not exists iot ( key:  id uuid, value: name char(16), type char(8), model char(8), year date, lonlat point(srid:wgs84) );
+create table if not exists iot ( key:  zid zuid, value: name char(16), type char(8), model char(8), year date, lonlat point(srid:wgs84) );
 insert into iot values ( 'MON1_SEAT', 'SENS', 'SZTM0001', '2000-01-23', point(-122.335167 47.608013) );
 insert into iot values ( 'MON2_PORT', 'SENS', 'SZTM0001', '2000-01-24', point(-122.6784 45.5152) );
 insert into iot values ( 'MON3_SANF', 'SENS', 'SZTM0002', '2000-01-25', point(-122.4194 37.7749) );
@@ -51,11 +51,11 @@ select * from iot where type='SENS' and year >= '2000-01-01' and  distance(lonla
 
 
 expect putvalue car1id;
-select id car1id from iot where name='CAR1';
+select zid car1id from iot where name='CAR1';
 print car1id;
 
 expect putvalue car2id;
-select id car2id from iot where name='CAR2';
+select zid car2id from iot where name='CAR2';
 print car2id;
 
 
@@ -65,7 +65,7 @@ drop table if exists iotstatus;
 create table if not exists iotstatus ( key: id char(32), ts timestamp, value: type char(8), tmp smallint, speed smallint, lonlat point(srid:wgs84) );
 
 drop index if exists statidx on iotstatus;
-create index statidx on iotstatus(key: ts, id, value: type, tmp, speed);
+create index statidx on test.iotstatus(key: ts, id, value: type, tmp, speed);
 
 insert into iotstatus (id, type, tmp, speed, lonlat ) values ( $getvalue(car1id)$, 'CAR', 20, 60, point(-122.335167 47.608013) );
 insert into iotstatus (id, type, tmp, speed, lonlat ) values ( $getvalue(car1id)$, 'CAR', 24, 50, point(-122.336168 47.608114) );
@@ -114,10 +114,10 @@ select max(tmp) maxtmp from test.iotstatus.statidx where type = 'CAR' and  ts >=
 ### communication messages between things
 
 drop table if exists iotmessage;
-create table if not exists iotmessage ( key: id uuid, value: from char(32), to char(32), data char(64) );
+create table if not exists iotmessage ( key: zid zuid, value: from char(32), to char(32), data char(64) );
 
 drop index if exists msgidx on iotmessage;
-create index msgidx on iotmessage(key: from, to, id );
+create index msgidx on iotmessage(key: from, to, zid );
 
 insert into iotmessage values ($getvalue(car1id)$, $getvalue(car2id)$, 'Hello, are you there?');
 insert into iotmessage values ($getvalue(car2id)$, $getvalue(car1id)$, 'I am here, where are you?');
@@ -128,10 +128,10 @@ expect rows 4;
 select * from iotmessage;
 
 expect rows 4;
-select uuidtime(id), from, to, data from iotmessage;
+select uuidtime(zid), from, to, data from iotmessage;
 
 expect rows 4;
-select uuidtime(id), from, to, data from iotmessage where uuidtime(id) >= '2022-07-19 04:12:00.422028';
+select uuidtime(zid), from, to, data from iotmessage where uuidtime(zid) >= '2022-07-19 04:12:00.422028';
 
 expect rows 4;
 select * from test.iotmessage.msgidx;
