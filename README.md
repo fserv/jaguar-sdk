@@ -40,6 +40,8 @@ Clients Setup:
 
     pip install jaguardb-http-client
 
+    The Python script httpclient/jaguarhttp.py demonstrates how to use the HTTP gateway.
+
 
 Http Gateway Setup:
 
@@ -82,6 +84,8 @@ JaguarDB server for seamless data access and management.
 Clients setup:
 
     pip install jaguardb-socket-client
+
+    The Python script socketclient/jaguarsocket.py demonstrates how to use jaguardb-socket-client package.
 
 
 JaguarDB  server setup:

@@ -1,0 +1,4 @@
+It feels colder on a windy day due to the phenomenon known as "wind chill." Wind chill 
+is the perceived decrease in temperature that occurs as a result of the combination of 
+cold air and wind. Even if the actual air temperature remains the same, the presence of 
+wind can make it feel significantly colder to our bodies.
