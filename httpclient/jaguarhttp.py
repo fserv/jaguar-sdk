@@ -45,7 +45,7 @@ def loadAndSearch():
     if token == '':
         print("Error login")
         exit(1)
-    print(f"session token is {token}")
+    print(f"session token of {apikey} is {token}")
 
 
     q = "drop store vdb.mystore"
