@@ -270,11 +270,11 @@ create store unittest1 ( key: uid char(32), value: v1 char(16), v2 char(16)), v3
 drop index if exists unittest1_idx1 on unittest1;
 create index unittest1_idx1 on unittest1( v2 );
 
-insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk1', vvvv1, vvvvvv2, vvvvv3 );
-insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk2', vvbvv1, vkkvvvvv2, vbvnvvvv3 );
-insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk3', some, vkkvvvvv2, vbvnvvvv3 );
-insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk4', some, vkkvvvvv2, vbvnvvvv3 );
-insert into unittest1  values ( 'kkk5', somev, vkkv6v, vbvnv8vv );
+insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk1', 'vvvv1', 'vvvvvv2', 'vvvvv3' );
+insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk2', 'vvbvv1', 'vkkvvvvv2', 'vbvnvvvv3' );
+insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk3', 'some', 'vkkvvvvv2', 'vbvnvvvv3' );
+insert into unittest1 ( uid, v1, v2, v3 ) values ( 'kkk4', 'some', 'vkkvvvvv2', 'vbvnvvvv3' );
+insert into unittest1  values ( 'kkk5', 'somev', 'vkkv6v', 'vbvnv8vv' );
 
 expect rows 5;
 select * from unittest1;
@@ -319,7 +319,7 @@ select * from unittest1 where v3='vbvnvvvv3';
 
 
 expect words "unittest1_idx1 v2 char";
-desc unittest1_idx1;
+desc test.unittest1.unittest1_idx1;
 
 expect rows 10;
 select * from test.unittest1.unittest1_idx1 limit 10;
@@ -640,7 +640,7 @@ desc callinfo;
 
 create index idx_callinfo_szCallNumber on callinfo(szCallNumber);
 expect words "idx_callinfo_szCallNumber szcallnumber";
-desc idx_callinfo_szCallNumber;
+desc test.callinfo.idx_callinfo_szCallNumber;
 
 load callinfo.txt into callinfo quote terminated by '\'';
 
@@ -833,7 +833,7 @@ desc tms1;
 drop index if exists tms1_idx1  on tms1 ;
 create index tms1_idx1 on tms1 ( addr );
 expect words "tms1_idx1 addr char";
-desc tms1_idx1;
+desc test.tms1.tms1_idx1;
 
 insert into tms1 values ( '', '123 B St' );
 insert into tms1 values ( '', '124 B St' );
@@ -1126,8 +1126,8 @@ select * from ii where b < 3000 and a > -55;
 
 drop store if exists media;
 create store media (key: uid int, value: jpg file, a char(23), tiff file );
-insert into media values ( 100, 'req.jpg', 'aaaa', random_test.txt );
-insert into media values ( 101, 'req.jpg', 'aaaa', callinfo.txt );
+insert into media values ( 100, 'req.jpg', 'aaaa', 'random_test.txt' );
+insert into media values ( 101, 'req.jpg', 'aaaa', 'callinfo.txt' );
 expect rows 2;
 select * from media;
 
@@ -1165,8 +1165,8 @@ getfile jpg sizegb from media where uid='101';
 
 drop store if exists media2;
 create store media2 (key: uid char(1), pt point, name char(2),  value: jpg file, a char(23), tiff file );
-insert into media2 values ( 'a', point(10 20 ), 'jy', 'req.jpg', 'aaaa1', random_test.txt );
-insert into media2 values ( 'b', point(12 22 ), 'mt', 'req.jpg', 'aaaa2', callinfo.txt );
+insert into media2 values ( 'a', point(10 20 ), 'jy', 'req.jpg', 'aaaa1', 'random_test.txt' );
+insert into media2 values ( 'b', point(12 22 ), 'mt', 'req.jpg', 'aaaa2', 'callinfo.txt' );
 insert into media2 values ( 'c', point(23 24 ), 'sy', 'req.jpg', 'aaaa3', 'callinfo.txt' );
 
 expect rows 3;

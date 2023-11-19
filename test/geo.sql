@@ -13,7 +13,7 @@ expect okmsg "";
 drop index if exists geom1_idx1 on geom1;
 
 expect okmsg "";
-create index geom1_idx1 on geom1(b,pt);
+create index geom1_idx1 on geom1(b);
 
 insert into geom1 values ( 1, point(22 33), 123 );
 insert into geom1 (a, pt, b ) values ( 2, point(22 33), 123 );
@@ -22,20 +22,20 @@ insert into geom1 (b, pt, a ) values ( 222, point(22 33), 12 );
 expect rows 3;
 select * from geom1;
 
-expect rows 3;
+expect rows 2;
 select * from test.geom1.geom1_idx1;
 
 expect okmsg "";
 drop store if exists geom2;
 
 expect okmsg "";
-create store if not exists geom2 ( key: a int, value: pt1 point, b int, uid uuid, pt2 point(srid:wgs84) );
+create store if not exists geom2 ( key: a int, value: pt1 point, b int, uid zuid, pt2 point(srid:wgs84) );
 
 expect words "geom2 pt1 pt2";
 desc geom2;
 
 drop index if exists geom2_idx1  on geom2;
-create index geom2_idx1 on geom2(b,pt2);
+create index geom2_idx1 on geom2(b);
 
 insert into geom2 values ( 1, point(22 33), 123, point(99 221) );
 insert into geom2 values ( 10, json({"type":"Point", "coordinates": [2,3]}), 123, json({"type":"Point", "coordinates":[5,9]}) );
@@ -45,12 +45,11 @@ insert into geom2 (b, pt2, pt1, a ) values ( 222, point(22 33), point(90 21), 17
 expect rows 4;
 select * from geom2;
 
-
-expect rows 4;
+expect rows 2;
 select * from test.geom2.geom2_idx1;
 
 drop store if exists geom3;
-create store if not exists geom3 ( key: pt1 point, value: b int, uid uuid, a int, pt2 point );
+create store if not exists geom3 ( key: pt1 point, value: b int, uid zuid, a int, pt2 point );
 
 expect words "geom3 pt1 pt2";
 desc geom3;
@@ -73,7 +72,7 @@ create store if not exists d5 ( key: a int, pt1 point3d, b int, pt2 point3d, val
 desc d5;
 
 drop index if exists d5_idx  on d5;
-create index d5_idx on d5(pt3, pt4, d, c );
+create index d5_idx on d5( d, c );
 
 insert into d5 values( 1, point3d(22 33 4), 23, point3d(99 22 1), 244, point3d(8 2 3), 234,  point3d(8 2 3) );
 insert into d5 values( 2, point3d(32 83 0), 23, point3d(94 82 1), 214, point3d(9 7 2), 234,  point3d(1 2 3) );
@@ -124,7 +123,7 @@ drop store if exists sph1;
 create store if not exists sph1 ( key: a int, s1 sphere, b int, s2 sphere, value: c int, s3 sphere );
 desc sph1 detail;
 drop index if exists sph1_idx1 on sph1;
-create index sph1_idx1 on sph1(c, s2, a, s1);
+create index sph1_idx1 on sph1(c, a );
 
 insert into sph1 values ( 100, sphere( 2 3 4 123), 321, sphere(99 22 33 20000), 321, sphere(99 223 12020 29292) );
 insert into sph1 values ( 102, sphere( 2 3 4 123), 321, sphere(99 22 33 20000), 321, sphere(99 223 12020 29292) );
@@ -143,7 +142,7 @@ drop store if exists sq1;
 create store if not exists sq1 ( key: a int, s1 square, b int, s2 square, value: c int, s3 square );
 desc sq1 detail;
 drop index  if exists sq1_idx1 on sq1;
-create index sq1_idx1 on sq1(s3);
+create index sq1_idx1 on sq1(c);
 
 insert into sq1 values ( 100, square( 22 453 22222), 100, square(9 3 123), 299, square(82 332 1212) );
 
@@ -154,7 +153,7 @@ drop store if exists cb1;
 create store if not exists cb1 ( key: a int, q1 cube, b int, q2 cube, value: c int, q3 cube );
 desc cb1 detail;
 drop index  if exists cb1_idx1 on cb1;
-create index cb1_idx1 on cb1(q3,q2, b);
+create index cb1_idx1 on cb1( b);
 
 insert into cb1 values ( 111, cube( 2 3 4 1233), 1234, cube(233 22 55 9393), 3212, cube(92 92 82 2345) );
 
@@ -186,7 +185,7 @@ expect words "bx1 b1 b2";
 desc bx1 detail;
 
 drop index  if exists bx1_idx1 on bx1;
-create index bx1_idx1 on bx1(b2, c );
+create index bx1_idx1 on bx1( c );
 
 insert into bx1 values ( 1, box(22 33 44 88 99 123), 233, box(9 9 9 22 22 33) );
 insert into bx1 ( c, a, b1 ) values ( 22, 31, box(29 13 48 19 21 12) );
@@ -400,7 +399,7 @@ desc linestr1 detail;
 drop index if exists linestr1_idx1 on linestr1;
 create index linestr1_idx1 on linestr1( b, ls2 );
 expect words "linestr1_idx1 b ls2";
-desc linestr1_idx1 detail;
+desc test.linestr1.linestr1_idx1 detail;
 
  insert into linestr1 values ( 1, linestring( 10 2,2 33 , 33 44, 55 66, 58 68, 77 88 ), 200, linestring( 11 11, 13 13, 17 17 ) );
 
@@ -431,7 +430,7 @@ select * from test.linestr1.linestr1_idx1;
 
 drop index if exists linestr21_idx1 on linestr21;
 create index linestr21_idx1 on linestr21( a );
-desc linestr21_idx1 detail;
+desc test.linestr21.linestr21_idx1 detail;
 
  insert into linestr21 values ( linestring( 11 2,2 33 , 33 44, 55 66, 55 66, 77 88 ), 200 );
 
@@ -461,12 +460,11 @@ select * from linestr2;
 select * from linestr2 where within( ls1, square( 10 10 78.1 ) );
 
 expect words "linestr2_idx1 geo:id geo:col";
-desc linestr2_idx1 detail;
+desc test.linestr2.linestr2_idx1 detail;
 
 expect rows 18;
 select * from test.linestr2.linestr2_idx1;
 
-#todo
 
  drop store if exists linestr3;
  create store linestr3 ( key: ls1 linestring(wgs84), a int, value: ls2 linestring, b int );
@@ -476,7 +474,7 @@ select * from test.linestr2.linestr2_idx1;
  drop index if exists linestr3_idx1 on linestr3;
  create index linestr3_idx1 on linestr3( b, ls2 );
  expect words "linestr3_idx1 ls2 b";
- desc linestr3_idx1 detail;
+ desc test.linestr3.linestr3_idx1 detail;
 
  insert into linestr3 values ( linestring( 211 2,2 33 , 33 44, 55 66, 55 66, 77 88 ), 200, linestring( 33 44, 55 66, 8 9 ), 804 );
 
@@ -516,7 +514,7 @@ select * from test.linestr2.linestr2_idx1;
  desc linestr3d1 detail;
 
 drop index if exists  linestr3d1_idx1 on linestr3d1;
- create index linestr3d1_idx1 on linestr3d1( b, ls2 );
+ create index linestr3d1_idx1 on linestr3d1( key: b, value: ls1 );
 
  insert into linestr3d1 values ( linestring3d( 1 2 2,1 2 33 , 8 33 44, 8 55 66  ), 200, linestring( 303 404, 505 606  ), 804 );
  insert into linestr3d1 values ( linestring3d( 1.1 2 2, 2 2.9 3 , 3 3 4, 2 5 6  ), 210, linestring( 3.3 4, 5 6  ), 805 );
@@ -573,16 +571,16 @@ select * from linestr3d1 where contain(ls1, point3d(1 2 3) );
  select geojson(ls1) from linestr3d1 where intersect( ls1, linestring3d( 0 0 -10, 0 0 10, 10 10 78.1) );
 
 
- expect words "linestr3d1_idx1 linestr3d1 b ls2";
- desc linestr3d1_idx1 detail;
+ expect words "linestr3d1_idx1 b";
+ desc test.linestr3d1.linestr3d1_idx1 detail;
 
- expect rows 12;
+ expect rows 3;
  select * from test.linestr3d1.linestr3d1_idx1;
 
- expect rows 12;
+ expect rows 3;
  select b from test.linestr3d1.linestr3d1_idx1;
 
- expect rows 4;
+ expect rows 0;
  select ls1:x, ls1:y from test.linestr3d1.linestr3d1_idx1 where ls1:x >= 3;
 
 
@@ -615,7 +613,6 @@ select ymax(ls) from lstr;
 select convexhull(ls) from lstr;
 select closestpoint( point(1 1), ls) from lstr;
 
-#qwer
 select interpolate(ls,0.5) from lstr;
 select linesubstring(ls,0.2, 0.8 ) from lstr;
 select locatepoint(ls, point( 3 9) ) from lstr;

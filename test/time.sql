@@ -461,12 +461,12 @@ desc delivery;
 drop index if exists delivery_index_courier on delivery;
 create index delivery_index_courier on delivery(courier, customer, meals );
 expect words "delivery_index_courier courier customer meals";
-desc delivery_index_courier;
+desc test.delivery.delivery_index_courier;
 
 drop index if exists delivery_index2_courier on delivery@1M;
 create index delivery_index2_courier on delivery@1M(courier, customer, meals::min, meals::max, meals::sum );
 expect words "delivery_index2_courier customer meals";
-desc delivery_index2_courier;
+desc test.delivery@1M.delivery_index2_courier;
 
 insert into delivery ( courier, customer, meals, addr ) values ( 'QDEX', 'JohnDoe', '3', '110 A Street, CA 90222' );
 insert into delivery ( courier, customer, meals, addr ) values ( 'QDEX', 'JaneDoe', '5', '110 B Street, CA 90001' );
