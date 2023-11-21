@@ -4,7 +4,8 @@
 apikey=`cat ~/.jagrc`
 
 echo "login ..."
-r=`curl -s --request POST --url "http://192.168.1.88:8080/fwww/" -d "{\"query\": \"login\", \"apikey\": \"$apikey\" }"`
+r=`curl -s --request POST --url "http://192.168.1.88:8080/fwww/" \
+     -d "{\"query\": \"login\", \"apikey\": \"$apikey\" }"`
 echo "$r"
 
 #r={"access_token":"906305a5c645dcf83eaf050c49e591850f6e0d7feb52b5cb956668b63b1ee139b0","token_type":"Bearer"}
