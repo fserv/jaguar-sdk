@@ -1,7 +1,10 @@
+jaguar.py is the class of Jaguar vector store.
 
 1. pip install -U langchain
 
-2. Setup  jaguardb and fwww http servers   www.jaguardb.com
+2. pip install -U jaguardb-http-client
 
-3. pytest test_jaguar.py
+3. Setup  jaguardb and fwww web servers   www.jaguardb.com
+
+4. pytest test_jaguar.py
 
