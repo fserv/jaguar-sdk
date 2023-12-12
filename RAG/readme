@@ -1,0 +1,7 @@
+
+1. pip install -U langchain
+
+2. Setup  jaguardb and fwww http servers   www.jaguardb.com
+
+3. pytest test_jaguar.py
+
