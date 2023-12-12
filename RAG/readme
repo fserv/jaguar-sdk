@@ -8,3 +8,4 @@ jaguar.py is the class of Jaguar vector store.
 
 4. pytest test_jaguar.py
 
+5. python3 jaguar_rag.py

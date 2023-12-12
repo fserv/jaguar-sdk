@@ -53,7 +53,7 @@ def loadAndSearch():
     print(response.text)
     print(f"drop store {response.text}")
 
-    q = "create store vdb.mystore ( key: zid zuid, value: v vector(1024, 'cosine_fraction_float'), v:f file, v:t char(1024) )"
+    q = "create store vdb.mystore ( v vector(1024, 'cosine_fraction_float'), v:f file, v:t char(1024), freq smallint, symbol char(8)  )"
     response = jag.get(q, token)
     print(f"create store {response.text}")
 
@@ -77,8 +77,10 @@ def loadAndSearch():
         ### upload file for v:f which is at column 2  (v:f column)
         rc = jag.postFile(token, fpath, 2 )
 
-        q = "insert into vdb.mystore values ('" + comma_sepstr + "', '" + fpath + "', '" + text + "' )"
+        q = "insert into vdb.mystore values ('" + comma_sepstr + "', '" + fpath + "', '" + text + "', '" + str(i) + "', 'AAA' )"
         response = jag.post(q, token, True)
+        print(f"post got response:")
+        print(response.text)
 
     ### done loading all 100 text files
 
@@ -94,32 +96,26 @@ def loadAndSearch():
     embeddings = model.encode(sentences, normalize_embeddings=False)
     comma_sepstr = ",".join( [str(x) for x in embeddings[0] ])
 
-    q = "select similarity(v, '" + comma_sepstr + "', 'topk=1, type=cosine_fraction_float, with_score=yes, with_text=yes') "
+    q = "select similarity(v, '" + comma_sepstr + "', 'topk=2, type=cosine_fraction_float, with_score=yes, with_text=yes, metadata=freq&symbol&v:f') "
     q += " from vdb.mystore"
     response = jag.post(q, token)
+    #print(f"resp.text={response.text}")
+    jarr = json.loads(response.text)
 
-    jd = json.loads(response.text)
+    for rec in jarr:
+        js= json.loads( rec )
+        field = js['field']
+        vid = js['vectorid']
+        zid = js['zid']
+        score = js['score']
+        dist = js['distance']
+        text = js['text']
 
-    print("\n");
-    print(f"query: {qt}")
-    print("\n");
+        filename = js['v:f']
+        freq = js['freq']
+        symbol = js['symbol']
 
-    for i in range(0, len(jd)):
-        fd= json.loads( jd[i] )
-        field = fd['field']
-        vid = fd['vectorid']
-        zid = fd['zid']
-        score = fd['score']
-        dist = fd['distance']
-        text = fd['text']
-
-        q = "select v:f as vf from vdb.mystore where zid='" + zid + "'"
-        response = jag.get(q, token)
-        j1 = json.loads( response.text )
-        j2 = json.loads( j1[0] )
-        filename = j2['vf']
-
-        print(f"zid=[{zid}]  distance=[{dist}] score=[{score}] filename={filename} text={text}")
+        print(f"zid=[{zid}] vid=[{vid}]  distance=[{dist}] score=[{score}] filename=[{filename}] text=[{text}] freq=[{freq}] symbol=[{symbol}]")
 
 
     jag.logout(token)
