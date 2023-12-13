@@ -290,6 +290,7 @@ class Jaguar(VectorStore):
         k: int = 3,
         where: Optional[str] = None,
         metadatas: Optional[List[str]] = None,
+        decay_rate: Optional[float] = None,
         **kwargs: Any,
     ) -> List[Document]:
         """
@@ -302,9 +303,6 @@ class Jaguar(VectorStore):
         Returns:
             List of Documents most similar to the query
         """
-        ### jyue todo
-        self.prt(f"similarity_search called k={k}  where={where}")
-
         docs_and_scores = self.similarity_search_with_score(
             query, k=k, where=where, metadatas=metadatas, **kwargs
         )
