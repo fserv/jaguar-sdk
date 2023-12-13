@@ -11,7 +11,6 @@ from langchain.prompts import ChatPromptTemplate
 from langchain.chat_models import ChatOpenAI
 
 
-#loader = TextLoader("../../modules/state_of_the_union.txt")
 loader = TextLoader("./state_of_the_union.txt")
 documents = loader.load()
 text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
@@ -48,6 +47,9 @@ vectorstore.create(metadata, text_size)
 vectorstore.add_documents(docs)
 
 retriever = vectorstore.as_retriever()
+# if use metadata:
+#retriever = vectorstore.as_retriever(search_kwargs={"where": "a='123' and b='xyz'"})
+
 
 template = """You are an assistant for question-answering tasks. Use the following pieces of retrieved context to answer the question. If you don't know the answer, just say that you don't know. Use three sentences maximum and keep the answer concise.
 Question: {question}
@@ -55,11 +57,9 @@ Context: {context}
 Answer:
 """
 prompt = ChatPromptTemplate.from_template(template)
-#print("prompt:")
-#print(prompt)
-#print("\n:")
 
-LLM = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+#LLM = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0)
+LLM = ChatOpenAI(model_name="gpt-4", temperature=0)
 rag_chain = (
     {"context": retriever, "question": RunnablePassthrough()}
     | prompt
@@ -67,8 +67,10 @@ rag_chain = (
     | StrOutputParser()
 )
 
-r = rag_chain.invoke("What did the president say about Justice Breyer?")
-print("response:")
-print(r)
+query = "What did the president say about Justice Breyer?"
+print(f"Question: {query}\n")
 
+r = rag_chain.invoke(query)
+print("Answer:")
+print(r)
 
