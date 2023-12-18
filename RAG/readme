@@ -7,3 +7,8 @@ jaguar.py is the class of Jaguar vector store.
 3. Setup  jaguardb and fwww web servers   www.jaguardb.com
 
 4. python3 jaguar_rag.py
+
+5. For RAG/LangChain integraton, please see:
+
+   https://github.com/fserv/langchain
+
