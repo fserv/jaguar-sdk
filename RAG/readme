@@ -6,6 +6,4 @@ jaguar.py is the class of Jaguar vector store.
 
 3. Setup  jaguardb and fwww web servers   www.jaguardb.com
 
-4. pytest test_jaguar.py
-
-5. python3 jaguar_rag.py
+4. python3 jaguar_rag.py
