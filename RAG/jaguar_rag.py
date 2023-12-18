@@ -13,7 +13,7 @@ from langchain.chat_models import ChatOpenAI
 
 loader = TextLoader("./state_of_the_union.txt")
 documents = loader.load()
-text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=0)
+text_splitter = CharacterTextSplitter(chunk_size=1000, chunk_overlap=300)
 docs = text_splitter.split_documents(documents)
 
 '''
