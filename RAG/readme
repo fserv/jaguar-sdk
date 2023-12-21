@@ -1,6 +1,8 @@
 jaguar.py is the class of Jaguar vector store.
 
 1. pip install -U langchain
+   pip install -U langchain_core
+   pip install -U langchain_community
 
 2. pip install -U jaguardb-http-client
 
