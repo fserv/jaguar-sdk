@@ -45,12 +45,12 @@ Clients Setup:
 
 Http Gateway Setup:
 
-    wget http://www.jaguardb.com/download/fwww_3.3.7.tar.gz
+    wget http://www.jaguardb.com/download/fwww_3.4.2.tar.gz
 
 
 JaguarDB Server Setup:
 
-    wget http://www.jaguardb.com/download/jaguar-3.3.7.tar.gz
+    wget http://www.jaguardb.com/download/jaguar-3.4.2.tar.gz
 
 
 Applications have the flexibility to bypass the HTTP gateway and establish direct connections with 
@@ -90,7 +90,7 @@ Clients setup:
 
 JaguarDB  server setup:
 
-    wget http://www.jaguardb.com/download/jaguar-3.3.7.tar.gz
+    wget http://www.jaguardb.com/download/jaguar-3.4.2.tar.gz
 
 
 
@@ -199,8 +199,40 @@ To get into the docker container and open a shell:
 ```
 
 You will see that /workdir has all installed files and a jaguar server instance is
-running under /home/jaguar directory. If you look at the "/ect/os-release" file, you
-can see that the jaguar docker image is based on Ubuntu 22.04 Linux.
+running under /home/jaguar directory. 
+
+
+## Using docker for setring up JaguarDB and HTTP gateway ##
+
+You can use the docker pull command to install JaguarDB on a node:
+
+```
+  docker pull jaguardb/jaguardb_with_http
+```
+
+
+Then you can start the JaguarDB and HTTP gateway in a docker container:
+
+```
+  docker run -d -p 8888:8888 -p 8080:8080 --name jaguardb_with_http  jaguardb/jaguardb_with_http
+```
+
+
+To launch ther jaguardb shell terminal and connect to jaguardb in docker:
+
+```
+  docker exec -it jaguardb_with_http /home/jaguar/jaguar/bin/jag  -apikey demouser
+```
+
+
+To get into the docker container and open a shell:
+
+```
+  docker exec -it jaguardb_with_http /bin/bash
+```
+
+The jaguardb_with_http docker image contains the jaguar server and the HTTP gateway server.
+The API key demouser is a real user account, with limited capability, for demonstrating the operations of the system.
 
 
 <br />
