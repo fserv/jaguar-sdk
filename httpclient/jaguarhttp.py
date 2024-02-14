@@ -26,7 +26,7 @@
 
 import requests, json, sys
 from sentence_transformers import SentenceTransformer
-from jaguardb.JaguarHttpClient import JaguarHttpClient
+from jaguardb_http_client.JaguarHttpClient import JaguarHttpClient
 
 
 def loadAndSearch():
