@@ -15,7 +15,7 @@
 ##  How run this program:
 ##
 ##      python3 simple_rag.py 'http://127.0.0.1:8080/fwww/'
-##      (replace 127.0.0.1 with your IP address if http server is running on a different host)
+##      (replace 127.0.0.1 with your IP address of http server)
 ##
 ##############################################################################
 
@@ -125,38 +125,38 @@ if __name__ == "__main__":
 
     ### add some collections to the vector store
     img_file = "./test1.jpg"
-    text = "a cute kitten"
+    text = "A kitten is a juvenile cat. After being born, kittens display primary altriciality and are fully dependent on their mothers for survival. They normally do not open their eyes for seven to ten days. After about two weeks, kittens develop quickly and begin to explore the world outside their nest."
     itemid = "105"
     sellerid = "20348"
     loadData(jag, img_model, text_model, img_file, text, itemid, sellerid)
 
     img_file = "./test2.jpg"
-    text = "a young puppy"
+    text = "Puppies offer unwavering love and loyalty. Their affection is boundless, making your heart feel fuller every day."
     itemid = "107"
     sellerid = "20348"
     loadData(jag, img_model, text_model, img_file, text, itemid, sellerid)
 
     img_file = "./test3.jpg"
-    text = "a big dog "
+    text = "Dogs are known for their unwavering loyalty and devotion to their owners. Dogs are often very affectionate and love to show their owners how much they care."
     itemid = "114"
     sellerid = "20348"
     loadData(jag, img_model, text_model, img_file, text, itemid, sellerid)
 
     img_file = "./bike1.jpg"
-    text = "motorbike"
+    text = "A motorcycle is a two-wheeled vehicle with an engine. Motorcycles are bigger, heavier, and much faster than bicycles, but they have many similar parts. Like bicycles, motorcycles are often called bikes. Motorcycles are a common form of transportation throughout the world. People also ride them in races or just for fun."
     itemid = "210"
     sellerid = "20348"
     loadData(jag, img_model, text_model, img_file, text, itemid, sellerid)
 
     img_file = "./bike2.jpg"
-    text = "motor bike"
+    text = "a motor vehicle with motive power having a seat or saddle for the use of the rider and designed to travel on not more than three wheels in contact with ground"
     itemid = "213"
     sellerid = "20348"
     loadData(jag, img_model, text_model, img_file, text, itemid, sellerid)
 
 
     ### search data by text
-    tuples = searchByText(jag, "big dog" )
+    tuples = searchByText(jag, "a big dog" )
     print(f"searchByText big dog tuples.size={len(tuples)}")
     for tup in tuples:
         text = tup[0]

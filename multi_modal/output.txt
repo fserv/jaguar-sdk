@@ -1,0 +1,54 @@
+
+Below text is the output of:
+
+    python3 simple_rag.py  'http://192.168.1.88:8080/fwww/'
+
+---------------------------------------------------------------------------------------------------------------------------------------------------
+insert zid=7pS2v3pzZUvO0wdS3OXd6zbzsAWz@000
+insert zid=7pS2v4cIcuyHoQOq1GmD6zbzsAWz@000
+insert zid=7pS2v5RS9lH7hIAczV456zbzsAWz@000
+insert zid=7pS2v6auWH5BVXCHUQbq6zbzsAWz@000
+insert zid=7pS2v7OvGvxghXiYjTj16zbzsAWz@000
+searchByText big dog tuples.size=3
+text=Puppies offer unwavering love and loyalty. Their affection is boundless, making your heart feel fuller every day.
+metadata={'zid': '7pS2v4cIcuyHoQOq1GmD6zbzsAWz@000', 'sellerid': '20348', 'itemid': '107', 'tms': '2024-04-09 11:21:32', 'imgvec:img': 'test2.jpg'}
+score=0.793
+zid=7pS2v4cIcuyHoQOq1GmD6zbzsAWz@000
+image_url=http://192.168.1.88:8080/fwww/?req=gfile&tenant=main&file=test2.jpg&token=511e3cce441176c60d5082a3664aff3e01471e645e750e7aa2fccf35d83918fee0
+
+
+text=a motor vehicle with motive power having a seat or saddle for the use of the rider and designed to travel on not more than three wheels in contact with ground
+metadata={'zid': '7pS2v7OvGvxghXiYjTj16zbzsAWz@000', 'sellerid': '20348', 'itemid': '213', 'tms': '2024-04-09 11:21:32', 'imgvec:img': 'bike2.jpg'}
+score=0.788
+zid=7pS2v7OvGvxghXiYjTj16zbzsAWz@000
+image_url=http://192.168.1.88:8080/fwww/?req=gfile&tenant=main&file=bike2.jpg&token=511e3cce441176c60d5082a3664aff3e01471e645e750e7aa2fccf35d83918fee0
+
+
+text=Dogs are known for their unwavering loyalty and devotion to their owners. Dogs are often very affectionate and love to show their owners how much they care.
+metadata={'zid': '7pS2v5RS9lH7hIAczV456zbzsAWz@000', 'sellerid': '20348', 'itemid': '114', 'tms': '2024-04-09 11:21:32', 'imgvec:img': 'test3.jpg'}
+score=0.787
+zid=7pS2v5RS9lH7hIAczV456zbzsAWz@000
+image_url=http://192.168.1.88:8080/fwww/?req=gfile&tenant=main&file=test3.jpg&token=511e3cce441176c60d5082a3664aff3e01471e645e750e7aa2fccf35d83918fee0
+
+
+searchByImage ./bike3.jpg tuples.size=3
+text=a motor vehicle with motive power having a seat or saddle for the use of the rider and designed to travel on not more than three wheels in contact with ground
+metadata={'zid': '7pS2v7OvGvxghXiYjTj16zbzsAWz@000', 'sellerid': '20348', 'itemid': '213', 'tms': '2024-04-09 11:21:32', 'imgvec:img': 'bike2.jpg', 'textvec:text': 'a motor vehicle with motive power having a seat or saddle for the use of the rider and designed to travel on not more than three wheels in contact with ground'}
+score=0.713
+zid=7pS2v7OvGvxghXiYjTj16zbzsAWz@000
+image_url=http://192.168.1.88:8080/fwww/?req=gfile&tenant=main&file=bike2.jpg&token=511e3cce441176c60d5082a3664aff3e01471e645e750e7aa2fccf35d83918fee0
+
+
+text=A motorcycle is a two-wheeled vehicle with an engine. Motorcycles are bigger, heavier, and much faster than bicycles, but they have many similar parts. Like bicycles, motorcycles are often called bikes. Motorcycles are a common form of transportation throughout the world. People also ride them in races or just for fun.
+metadata={'zid': '7pS2v6auWH5BVXCHUQbq6zbzsAWz@000', 'sellerid': '20348', 'itemid': '210', 'tms': '2024-04-09 11:21:32', 'imgvec:img': 'bike1.jpg', 'textvec:text': 'A motorcycle is a two-wheeled vehicle with an engine. Motorcycles are bigger, heavier, and much faster than bicycles, but they have many similar parts. Like bicycles, motorcycles are often called bikes. Motorcycles are a common form of transportation throughout the world. People also ride them in races or just for fun.'}
+score=0.672
+zid=7pS2v6auWH5BVXCHUQbq6zbzsAWz@000
+image_url=http://192.168.1.88:8080/fwww/?req=gfile&tenant=main&file=bike1.jpg&token=511e3cce441176c60d5082a3664aff3e01471e645e750e7aa2fccf35d83918fee0
+
+
+text=Dogs are known for their unwavering loyalty and devotion to their owners. Dogs are often very affectionate and love to show their owners how much they care.
+metadata={'zid': '7pS2v5RS9lH7hIAczV456zbzsAWz@000', 'sellerid': '20348', 'itemid': '114', 'tms': '2024-04-09 11:21:32', 'imgvec:img': 'test3.jpg', 'textvec:text': 'Dogs are known for their unwavering loyalty and devotion to their owners. Dogs are often very affectionate and love to show their owners how much they care.'}
+score=0.654
+zid=7pS2v5RS9lH7hIAczV456zbzsAWz@000
+image_url=http://192.168.1.88:8080/fwww/?req=gfile&tenant=main&file=test3.jpg&token=511e3cce441176c60d5082a3664aff3e01471e645e750e7aa2fccf35d83918fee0
+
