@@ -1,0 +1,4 @@
+This is an example of multi-modal support for images and texts. You can query the jaguar vector
+store by text or image.
+
+Read the beginning section of simple_rag.py for how to installed packages to run the example.
