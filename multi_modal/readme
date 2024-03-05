@@ -1,4 +1,16 @@
 This is an example of multi-modal support for images and texts. You can query the jaguar vector
 store by text or image.
 
-Read the beginning section of simple_rag.py for how to installed packages to run the example.
+To set up the environment, run:
+
+    ./setup.sh
+
+which requires sudo to install jaguardb docker package.
+
+
+To run the program:
+
+    python3 simple_rag.py 'http://127.0.0.1:8080/fwww/'
+
+    (replace 127.0.0.1 with your IP address of http server)
+
