@@ -24,7 +24,6 @@ from PIL import Image
 from sentence_transformers import SentenceTransformer
 from jaguardb_http_client.JaguarHttpClient import JaguarHttpClient
 
-
 """
 create a vector store
 """
@@ -56,14 +55,10 @@ def loadData(jag, img_model, text_model, image_file, text, itemid, sellerid):
     img_embeddings = img_model.encode( images, normalize_embeddings=True )
     f.close()
     img_embeddings_vec = img_embeddings[0]
-    
-    #print(f"img_embeddings={img_embeddings}")
 
     sentences = [ text ]
     text_embeddings = text_model.encode(sentences, normalize_embeddings=True)
     text_embeddings_vec = text_embeddings[0]
-    #print(f"text_embeddings={text_embeddings}")
-
 
     files = [{"filepath": image_file, "position": 3} ]
     tensors = [img_embeddings_vec, text_embeddings_vec ]
@@ -111,17 +106,13 @@ if __name__ == "__main__":
     jag = JaguarHttpClient(url)
     apikey = "demouser"
     token = jag.login(apikey)
-    #print(f"got token={token}")
-
 
     ### get image and text embedding modles
     img_model = SentenceTransformer('clip-ViT-B-32')       # dim 512
     text_model = SentenceTransformer('BAAI/bge-large-en')  # dim 1024
 
-
     ### create a vector store
     createStore(jag)
-
 
     ### add some collections to the vector store
     img_file = "./test1.jpg"
@@ -153,7 +144,6 @@ if __name__ == "__main__":
     itemid = "213"
     sellerid = "20348"
     loadData(jag, img_model, text_model, img_file, text, itemid, sellerid)
-
 
     ### search data by text
     tuples = searchByText(jag, "a big dog" )
@@ -196,7 +186,5 @@ if __name__ == "__main__":
         print(f"image_url={imgurl}")
         print("\n")
 
-        
-    
     ### log out to clean up resources and invalidate Image URLs
     # jag.logout( token )
