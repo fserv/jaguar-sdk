@@ -9,6 +9,9 @@
 # expect rows 3;
 # select * from lstr;
 
+# expect json_rows 3;
+# select * from lstr;
+
 # expect words "k1 k4 col3 col5"
 # desc t5;
 
@@ -1218,5 +1221,29 @@ select avg(b) v from dv;
 
 expect value v 35000.0;
 select avg(c) v from dv;
+
+
+
+### multiple insert or update in one batch 
+insert into jbench values ( 'JD Wayne', '123 SW RD., SF' ); insert into jbench values ( 'MK Devin', '300 DR, SF');
+expect rows 20;
+select * from jbench;
+
+### multiple  delete in one batch 
+delete from jbench where uid='JD Wayne'; delete from jbench where uid='MK Devin';
+expect rows 18;
+select * from jbench;
+
+### multiple  updates in one batch 
+update jbench set addr='addr0002' where  uid='0002'; update jbench set addr='zzz000' where  uid='zzzzzz';
+expect rows 18;
+select * from jbench;
+
+expect string addr "addr0002";
+select addr from jbench where uid='0002';
+
+expect string addr "zzz000";
+select addr from jbench where uid='zzzzzz';
+
 
 quit;

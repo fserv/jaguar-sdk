@@ -18,7 +18,7 @@
 ##
 ##  Requires: pip install jaguardb-http-client
 ##
-##  Requires: install and set the http gateway using the fwww_3.3.7.tar.gz
+##  Requires: install and set the http gateway using the fwww_3.4.3.tar.gz
 ##
 ##  Refer   http://github.com/fserv/jaguar-sdk
 ##

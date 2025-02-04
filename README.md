@@ -45,12 +45,12 @@ Clients Setup:
 
 Http Gateway Setup:
 
-    wget http://www.jaguardb.com/download/fwww_3.4.2.tar.gz
+    wget http://www.jaguardb.com/download/fwww_3.4.3.tar.gz
 
 
 JaguarDB Server Setup:
 
-    wget http://www.jaguardb.com/download/jaguar-3.4.2.tar.gz
+    wget http://www.jaguardb.com/download/jaguar-3.4.3.tar.gz
 
 
 Applications have the flexibility to bypass the HTTP gateway and establish direct connections with 
@@ -90,7 +90,7 @@ Clients setup:
 
 JaguarDB  server setup:
 
-    wget http://www.jaguardb.com/download/jaguar-3.4.2.tar.gz
+    wget http://www.jaguardb.com/download/jaguar-3.4.3.tar.gz
 
 
 
