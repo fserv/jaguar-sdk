@@ -1,0 +1,43 @@
+Venv setup:
+
+It is recommended to set up venv:
+
+   python3 -m venv langchain-venv
+
+
+  This can prevent python package conflicts.
+
+
+Packages required:
+
+ pip install -U langchain
+ pip install -U langchain_core
+ pip install -U langchain_community
+ pip install -U langchain-openai
+ pip install -U jaguardb-http-client
+
+Install DeepSeek:
+
+    run_deepseek.sh
+
+
+Installation of JaguarDB:
+
+ You need to setup  jaguardb and http gateway servers
+
+    http://www.jaguardb.com
+
+  Use one the following three methods:
+
+  Method 1:   docker pull and docker run
+  Method 2:   local installation of jaguardb package on any Linux host
+  Method 2:   cluster installation of jaguardb package on multiple Linux hosts
+
+
+Run the Pyth program:
+
+  python3 ask_jaguar_and_deepseek.py
+
+  This will install Ollama and DeepSeek LLM.
+
+
