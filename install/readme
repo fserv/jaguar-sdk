@@ -6,3 +6,7 @@ Script install.sh is the one on http://jaguardb.com/install.sh
 
 Script install_jdb_http.sh is the internal script in the JaguarDB package
 (Users should ignore this script)
+
+Script docker_load.sh is for users who are the region that cannot run the
+docker pull directly but have to download the jaguardb docker image
+and run the image locally.

@@ -2,7 +2,7 @@ Venv setup:
 
 It is recommended to set up venv:
 
-   python3 -m venv langchain-venv
+   python3 -m venv myproject-venv
 
 
   This can prevent python package conflicts.
@@ -20,6 +20,7 @@ Install DeepSeek:
 
     run_deepseek.sh
 
+  This will install Ollama and DeepSeek LLM.
 
 Installation of JaguarDB:
 
@@ -37,7 +38,7 @@ Installation of JaguarDB:
 Run the Pyth program:
 
   python3 ask_jaguar_and_deepseek.py
+  python3 ask_jaguar_and_deepseek.py -d    # This will delete the vector store finally
 
-  This will install Ollama and DeepSeek LLM.
 
 
