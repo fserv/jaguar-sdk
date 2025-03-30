@@ -43,7 +43,7 @@ def ask(vectorstore, ollamaurl, context, prompt):
 def main():
 
     ######### prepare to input text file and split it into chunks ########
-    loader = TextLoader("./fish_price.txt")
+    loader = TextLoader("./milk_price.txt")
     documents = loader.load()
     text_splitter = CharacterTextSplitter( separator='',  chunk_size=200, chunk_overlap=80)
     docs = text_splitter.split_documents(documents)
@@ -84,12 +84,12 @@ def main():
     """
 
     ### Your prompt/question
-    prompt = "进口鱼粉的价格是什么"
+    prompt = "进口奶粉的价格是什么"
     ask(vectorstore, OLLAMA_URL, context, prompt)
 
 
     ### ask another question
-    prompt = "国产鱼粉的价格是什么"
+    prompt = "国产奶粉的价格是什么"
     ask(vectorstore, OLLAMA_URL, context, prompt)
 
     
