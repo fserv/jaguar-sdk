@@ -1,0 +1,8 @@
+Script user_download_install.sh is for users to download and install JaguarDB locally on a Linux host.
+(Users should execute this script)
+
+Script install.sh is the one on http://jaguardb.com/install.sh
+(Users should ignore this script)
+
+Script install_jdb_http.sh is the internal script in the JaguarDB package
+(Users should ignore this script)
