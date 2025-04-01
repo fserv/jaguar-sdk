@@ -1,8 +1,7 @@
 from langchain_community.document_loaders import TextLoader
 from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.llms import OpenAI
 from langchain_community.vectorstores.jaguar import Jaguar
-from langchain_openai import OpenAIEmbeddings
+from langchain_huggingface import HuggingFaceEmbeddings
 import re, sys, requests
 
 
@@ -50,8 +49,10 @@ def main():
 
     ########## login to jaguardb with a API key #####################
     url='http://192.168.1.88:8080/fwww/'
+    url='http://localhost:8080/fwww/'
     jaguar_api_key='demouser'
-    embeddings = OpenAIEmbeddings()  ## can use other embeddings
+
+    embeddings = HuggingFaceEmbeddings( model_name="BAAI/bge-large-zh")
 
     pod = "vdb"
     store = "fish_store"

@@ -15,6 +15,8 @@ Packages required:
  pip install -U langchain_community
  pip install -U langchain-openai
  pip install -U jaguardb-http-client
+ pip install -U langchain-huggingface
+
 
 Install DeepSeek:
 
