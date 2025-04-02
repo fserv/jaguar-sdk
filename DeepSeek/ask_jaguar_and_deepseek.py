@@ -47,7 +47,7 @@ def main():
     store = "fish_store"
     vector_index = "v"
     vector_type = "cosine_fraction_float"
-    vector_dimension = 1536
+    vector_dimension = 1024
 
     vectorstore = Jaguar(pod, store, vector_index,
         vector_type, vector_dimension, url, embeddings

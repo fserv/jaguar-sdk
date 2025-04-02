@@ -48,17 +48,17 @@ def main():
     docs = text_splitter.split_documents(documents)
 
     ########## login to jaguardb with a API key #####################
-    url='http://192.168.1.88:8080/fwww/'
+    ##url='http://192.168.1.88:8080/fwww/'
     url='http://localhost:8080/fwww/'
     jaguar_api_key='demouser'
 
     embeddings = HuggingFaceEmbeddings( model_name="BAAI/bge-large-zh")
 
     pod = "vdb"
-    store = "fish_store"
+    store = "milk_store"
     vector_index = "v"
     vector_type = "cosine_fraction_float"
-    vector_dimension = 1536
+    vector_dimension = 1024
 
     vectorstore = Jaguar(pod, store, vector_index,
         vector_type, vector_dimension, url, embeddings
