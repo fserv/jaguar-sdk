@@ -7,5 +7,5 @@
 ##
 ##############################################################
 
-echo docker run -d -p 8888:8888 jaguardb/jaguardb
-docker run -d -p 8888:8888 --name jaguardb jaguardb/jaguardb
+echo docker run -d -p 8080:8080 -p 8888:8888 jaguardb/jaguardb
+docker run -d -p 8080:8080 -p 8888:8888 --name jaguardb jaguardb/jaguardb
